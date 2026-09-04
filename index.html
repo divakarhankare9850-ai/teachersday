@@ -1,0 +1,2712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f6f0e4">
+<meta name="description" content="A heartfelt Teachers' Day greeting card with gratitude.">
+
+<title>Happy Teachers' Day — With Gratitude</title>
+
+<!-- Kept as a single-file website. Tailwind is not required by the design,
+     but the original dependency is retained for compatibility. -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root{
+  --ivory:        #f6f0e4;
+  --ivory-deep:   #efe6d4;
+  --paper-edge:   #e7dcc4;
+
+  --navy:         #1f2b3d;
+  --navy-deep:    #16202e;
+  --navy-soft:    #35455c;
+
+  --gold:         #b58a3f;
+  --gold-soft:    #d4b573;
+  --gold-line:    #c9a35c;
+
+  --sage:         #7c9377;
+  --sage-deep:    #5c7357;
+
+  --ink-muted:    #5a5240;
+
+  --card-w: clamp(300px, 88vw, 620px);
+  --card-h: clamp(420px, 78dvh, 780px);
+  --radius: clamp(10px, 1.4vw, 18px);
+
+  --dur-fast: 220ms;
+  --dur-med: 620ms;
+  --dur-slow: 1400ms;
+
+  --ease-silk: cubic-bezier(.22,.61,.36,1);
+  --ease-settle: cubic-bezier(.16,.84,.44,1);
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  width:100%;
+  height:100%;
+  margin:0;
+}
+
+body{
+  font-family:
+    "Cormorant Garamond",
+    "Iowan Old Style",
+    "Baskerville",
+    "Times New Roman",
+    Georgia,
+    serif;
+
+  background:var(--ivory);
+  color:var(--navy);
+
+  overflow:hidden;
+  min-height:100dvh;
+
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+
+  touch-action:manipulation;
+}
+
+/* Display type */
+h1,
+h2,
+.font-display{
+  font-family:
+    "Playfair Display",
+    "Iowan Old Style",
+    "Baskerville",
+    "Times New Roman",
+    Georgia,
+    serif;
+}
+
+/* Utility type */
+.font-label{
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+/* ============================================================
+   BACKGROUND
+   ============================================================ */
+
+.stage{
+  position:relative;
+  width:100%;
+  min-height:100dvh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  isolation:isolate;
+}
+
+.bg-wash{
+  position:fixed;
+  inset:0;
+  z-index:0;
+
+  background:
+    radial-gradient(
+      ellipse 60% 45% at 50% 38%,
+      rgba(255,252,242,.92),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 80% 60% at 12% 90%,
+      rgba(124,147,119,.10),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 80% 60% at 92% 8%,
+      rgba(181,138,63,.10),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      var(--ivory) 0%,
+      var(--ivory-deep) 100%
+    );
+}
+
+.bg-grain{
+  position:fixed;
+  inset:0;
+  z-index:1;
+
+  pointer-events:none;
+
+  opacity:.5;
+  mix-blend-mode:multiply;
+
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(90,82,64,.015) 0px,
+      rgba(90,82,64,.015) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(90,82,64,.012) 0px,
+      rgba(90,82,64,.012) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+}
+
+.bg-vignette{
+  position:fixed;
+  inset:0;
+  z-index:2;
+
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      ellipse 90% 80% at 50% 50%,
+      transparent 55%,
+      rgba(22,32,46,.10) 100%
+    );
+}
+
+/* Soft central glow */
+.stage::after{
+  content:"";
+  position:fixed;
+  width:min(70vw,700px);
+  height:min(70vw,700px);
+
+  left:50%;
+  top:50%;
+
+  transform:translate(-50%,-50%);
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.30),
+      transparent 68%
+    );
+
+  pointer-events:none;
+  z-index:2;
+
+  filter:blur(12px);
+}
+
+/* ============================================================
+   DECORATIVE ENVIRONMENT
+   ============================================================ */
+
+.decor-layer{
+  position:fixed;
+  inset:0;
+
+  z-index:3;
+
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.decor-item{
+  position:absolute;
+
+  opacity:.55;
+
+  transform-origin:center;
+
+  will-change:transform;
+}
+
+/* ============================================================
+   FLOWERS
+   ============================================================ */
+
+.flower{
+  position:absolute;
+  width:60px;
+  height:120px;
+}
+
+.flower .stem{
+  position:absolute;
+
+  bottom:0;
+  left:50%;
+
+  width:2px;
+  height:78px;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--sage-deep),
+      var(--sage)
+    );
+
+  transform:translateX(-50%);
+  border-radius:2px;
+}
+
+.flower .leaf{
+  position:absolute;
+
+  width:20px;
+  height:11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--sage),
+      var(--sage-deep)
+    );
+
+  border-radius:0 100% 0 100%;
+}
+
+.flower .leaf.l{
+  left:-14px;
+  bottom:30px;
+  transform:rotate(-18deg);
+}
+
+.flower .leaf.r{
+  left:6px;
+  bottom:44px;
+
+  transform:
+    rotate(20deg)
+    scaleX(-1);
+
+  border-radius:100% 0 100% 0;
+}
+
+.flower .blossom{
+  position:absolute;
+
+  top:0;
+  left:50%;
+
+  width:34px;
+  height:34px;
+
+  transform:translateX(-50%);
+}
+
+.flower .petal{
+  position:absolute;
+
+  width:16px;
+  height:22px;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #fbeee0,
+      var(--gold-soft) 70%
+    );
+
+  border-radius:
+    60% 60% 60% 60% /
+    80% 80% 40% 40%;
+
+  top:50%;
+  left:50%;
+
+  transform-origin:bottom center;
+
+  box-shadow:
+    0 1px 2px rgba(181,138,63,.08);
+}
+
+.flower .petal:nth-child(1){
+  transform:translate(-50%,-100%) rotate(0deg);
+}
+
+.flower .petal:nth-child(2){
+  transform:translate(-50%,-100%) rotate(72deg);
+}
+
+.flower .petal:nth-child(3){
+  transform:translate(-50%,-100%) rotate(144deg);
+}
+
+.flower .petal:nth-child(4){
+  transform:translate(-50%,-100%) rotate(216deg);
+}
+
+.flower .petal:nth-child(5){
+  transform:translate(-50%,-100%) rotate(288deg);
+}
+
+.flower .center{
+  position:absolute;
+
+  top:50%;
+  left:50%;
+
+  width:9px;
+  height:9px;
+
+  background:
+    radial-gradient(
+      circle,
+      var(--gold),
+      var(--gold-line)
+    );
+
+  border-radius:50%;
+
+  transform:translate(-50%,-50%);
+
+  box-shadow:
+    0 0 4px rgba(181,138,63,.4);
+}
+
+.flower.sway{
+  animation:sway 7s ease-in-out infinite;
+}
+
+@keyframes sway{
+  0%,100%{
+    transform:rotate(-2.2deg);
+  }
+
+  50%{
+    transform:rotate(2.2deg);
+  }
+}
+
+/* ============================================================
+   EDUCATION DOODLES
+   ============================================================ */
+
+/* Book */
+.doodle-book{
+  width:46px;
+  height:34px;
+}
+
+.doodle-book .cover{
+  position:absolute;
+  inset:0;
+
+  border:2px solid var(--navy-soft);
+
+  border-radius:
+    3px 6px 6px 3px;
+
+  background:rgba(255,252,244,.4);
+}
+
+.doodle-book .spine{
+  position:absolute;
+
+  left:50%;
+  top:-2px;
+  bottom:-2px;
+
+  width:2px;
+
+  background:var(--navy-soft);
+
+  transform:translateX(-50%);
+}
+
+.doodle-book .pages{
+  position:absolute;
+
+  left:4px;
+  right:4px;
+  top:3px;
+  bottom:3px;
+
+  border-left:
+    1px solid rgba(53,69,92,.35);
+
+  border-right:
+    1px solid rgba(53,69,92,.35);
+}
+
+/* Pencil */
+.doodle-pencil{
+  width:58px;
+  height:10px;
+}
+
+.doodle-pencil .body{
+  position:absolute;
+
+  left:0;
+  top:0;
+
+  width:44px;
+  height:10px;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--gold-soft),
+      var(--gold)
+    );
+
+  border:1.5px solid var(--navy-soft);
+  border-right:none;
+}
+
+.doodle-pencil .tip{
+  position:absolute;
+
+  left:44px;
+  top:0;
+
+  width:0;
+  height:0;
+
+  border-top:5px solid transparent;
+  border-bottom:5px solid transparent;
+  border-left:12px solid #e9dcc0;
+
+  filter:
+    drop-shadow(1px 0 0 var(--navy-soft));
+}
+
+.doodle-pencil .lead{
+  position:absolute;
+
+  left:54px;
+  top:3.5px;
+
+  width:0;
+  height:0;
+
+  border-top:1.5px solid transparent;
+  border-bottom:1.5px solid transparent;
+  border-left:4px solid var(--navy-deep);
+}
+
+/* Graduation cap */
+.doodle-cap{
+  width:50px;
+  height:34px;
+}
+
+.doodle-cap .board{
+  position:absolute;
+
+  top:6px;
+  left:3px;
+
+  width:44px;
+  height:8px;
+
+  background:var(--navy-soft);
+
+  transform:rotate(-2deg);
+
+  border-radius:1px;
+}
+
+.doodle-cap .base{
+  position:absolute;
+
+  top:12px;
+  left:15px;
+
+  width:20px;
+  height:12px;
+
+  background:var(--navy);
+
+  border-radius:
+    0 0 40% 40%;
+}
+
+.doodle-cap .tassel{
+  position:absolute;
+
+  top:8px;
+  left:24px;
+
+  width:1.5px;
+  height:16px;
+
+  background:var(--gold);
+}
+
+.doodle-cap .tassel::after{
+  content:"";
+
+  position:absolute;
+
+  bottom:-3px;
+  left:-2px;
+
+  width:5px;
+  height:5px;
+
+  background:var(--gold);
+
+  border-radius:50%;
+}
+
+/* Glasses */
+.doodle-glasses{
+  width:52px;
+  height:20px;
+}
+
+.doodle-glasses .lens{
+  position:absolute;
+
+  top:0;
+
+  width:20px;
+  height:20px;
+
+  border:
+    2px solid var(--navy-soft);
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.15);
+}
+
+.doodle-glasses .lens.left{
+  left:0;
+}
+
+.doodle-glasses .lens.right{
+  right:0;
+}
+
+.doodle-glasses .bridge{
+  position:absolute;
+
+  top:8px;
+  left:20px;
+
+  width:12px;
+  height:2px;
+
+  background:var(--navy-soft);
+}
+
+/* Light bulb */
+.doodle-bulb{
+  width:26px;
+  height:40px;
+}
+
+.doodle-bulb .glass{
+  position:absolute;
+
+  top:0;
+  left:3px;
+
+  width:20px;
+  height:22px;
+
+  border:
+    2px solid var(--gold);
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle at 40% 30%,
+      rgba(212,181,115,.35),
+      transparent 70%
+    );
+}
+
+.doodle-bulb .base{
+  position:absolute;
+
+  top:20px;
+  left:8px;
+
+  width:10px;
+  height:10px;
+
+  border:
+    1.5px solid var(--navy-soft);
+
+  border-top:none;
+}
+
+.doodle-bulb .filament{
+  position:absolute;
+
+  top:8px;
+  left:10px;
+
+  width:6px;
+  height:8px;
+
+  border:
+    1px solid var(--gold);
+
+  border-radius:2px;
+
+  opacity:.7;
+}
+
+/* Stars */
+.doodle-star{
+  width:18px;
+  height:18px;
+}
+
+.doodle-star::before,
+.doodle-star::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:var(--gold-soft);
+
+  clip-path:
+    polygon(
+      50% 0%,
+      61% 39%,
+      100% 50%,
+      61% 61%,
+      50% 100%,
+      39% 61%,
+      0% 50%,
+      39% 39%
+    );
+}
+
+.doodle-star::after{
+  transform:
+    rotate(45deg)
+    scale(.6);
+
+  opacity:.6;
+}
+
+/* ============================================================
+   FLOATING DECORATION
+   ============================================================ */
+
+.float-slow{
+  animation:floaty 9s ease-in-out infinite;
+}
+
+.float-med{
+  animation:floaty 6.5s ease-in-out infinite;
+}
+
+.float-slower{
+  animation:floaty 11s ease-in-out infinite;
+}
+
+@keyframes floaty{
+  0%,100%{
+    transform:
+      translateY(0)
+      rotate(var(--rot,0deg));
+  }
+
+  50%{
+    transform:
+      translateY(-10px)
+      rotate(
+        calc(var(--rot,0deg) + 3deg)
+      );
+  }
+}
+
+/* ============================================================
+   AMBIENT PARTICLES
+   ============================================================ */
+
+.drift-particle{
+  position:absolute;
+
+  width:5px;
+  height:5px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      var(--gold-soft),
+      transparent 70%
+    );
+
+  opacity:0;
+
+  animation:
+    drift 12s linear infinite;
+}
+
+@keyframes drift{
+  0%{
+    opacity:0;
+
+    transform:
+      translateY(0)
+      translateX(0);
+  }
+
+  10%{
+    opacity:.6;
+  }
+
+  90%{
+    opacity:.4;
+  }
+
+  100%{
+    opacity:0;
+
+    transform:
+      translateY(-140px)
+      translateX(20px);
+  }
+}
+
+/* ============================================================
+   CARD CONTAINER
+   ============================================================ */
+
+.card-wrap{
+  position:relative;
+
+  z-index:10;
+
+  width:var(--card-w);
+  height:var(--card-h);
+
+  perspective:2400px;
+
+  /* Gives the card more breathing room */
+  margin:20px;
+}
+
+/* Ambient glow behind card */
+.card-wrap::before{
+  content:"";
+
+  position:absolute;
+
+  inset:-25px;
+
+  border-radius:40px;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255,255,255,.42),
+      transparent 70%
+    );
+
+  filter:blur(18px);
+
+  z-index:-2;
+
+  opacity:.75;
+}
+
+/* ============================================================
+   CARD
+   ============================================================ */
+
+.card{
+  position:relative;
+
+  width:100%;
+  height:100%;
+
+  cursor:pointer;
+
+  transform-style:preserve-3d;
+
+  transform:
+    rotateX(0deg)
+    rotateY(0deg);
+
+  transition:
+    transform var(--dur-fast) var(--ease-silk);
+
+  -webkit-tap-highlight-color:transparent;
+
+  user-select:none;
+}
+
+/* Keyboard focus */
+.card:focus-visible{
+  outline:none;
+}
+
+.card:focus-visible .card-face{
+  box-shadow:
+    0 0 0 3px var(--ivory),
+    0 0 0 6px var(--gold),
+    0 30px 60px -20px rgba(22,32,46,.35),
+    0 10px 24px -10px rgba(22,32,46,.25);
+}
+
+/* ============================================================
+   CARD SHADOW
+   ============================================================ */
+
+.card-shadow{
+  position:absolute;
+
+  left:6%;
+  right:6%;
+  bottom:-22px;
+
+  height:34px;
+
+  background:
+    radial-gradient(
+      ellipse 60% 100% at 50% 50%,
+      rgba(22,32,46,.28),
+      transparent 75%
+    );
+
+  filter:blur(6px);
+
+  z-index:-1;
+
+  transition:
+    opacity var(--dur-med) var(--ease-silk),
+    transform var(--dur-med) var(--ease-silk);
+}
+
+/* ============================================================
+   CARD FACE
+   ============================================================ */
+
+.card-face{
+  position:absolute;
+  inset:0;
+
+  border-radius:var(--radius);
+
+  background:
+    linear-gradient(
+      155deg,
+      #fbf7ec 0%,
+      var(--ivory) 45%,
+      var(--ivory-deep) 100%
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    inset 0 -1px 0 rgba(90,82,64,.08),
+    0 24px 50px -20px rgba(22,32,46,.30),
+    0 8px 18px -10px rgba(22,32,46,.22);
+
+  overflow:hidden;
+
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+
+  isolation:isolate;
+}
+
+/* Paper texture */
+.card-face::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background-image:
+    repeating-linear-gradient(
+      115deg,
+      rgba(90,82,64,.025) 0px,
+      transparent 1.5px,
+      transparent 4px
+    );
+
+  pointer-events:none;
+
+  z-index:0;
+}
+
+/* Very subtle inner illumination */
+.card-face::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 15%,
+      rgba(255,255,255,.28),
+      transparent 55%
+    );
+
+  pointer-events:none;
+
+  z-index:0;
+}
+
+/* ============================================================
+   GOLD CARD BORDER
+   ============================================================ */
+
+.card-border{
+  position:absolute;
+
+  inset:
+    clamp(10px,3%,20px);
+
+  border:
+    1px solid var(--gold-line);
+
+  border-radius:
+    calc(var(--radius) - 6px);
+
+  opacity:.55;
+
+  pointer-events:none;
+
+  z-index:3;
+}
+
+.card-border::before{
+  content:"";
+
+  position:absolute;
+
+  inset:5px;
+
+  border:
+    1px solid rgba(181,138,63,.28);
+
+  border-radius:
+    calc(var(--radius) - 10px);
+}
+
+/* ============================================================
+   CORNER FLOURISHES
+   ============================================================ */
+
+.corner-flourish{
+  position:absolute;
+
+  width:34px;
+  height:34px;
+
+  pointer-events:none;
+
+  opacity:.7;
+
+  z-index:4;
+}
+
+.corner-flourish::before,
+.corner-flourish::after{
+  content:"";
+
+  position:absolute;
+
+  background:var(--gold-line);
+}
+
+.corner-flourish::before{
+  width:100%;
+  height:1px;
+
+  top:0;
+  left:0;
+}
+
+.corner-flourish::after{
+  width:1px;
+  height:100%;
+
+  top:0;
+  left:0;
+}
+
+.corner-flourish.tl{
+  top:18px;
+  left:18px;
+}
+
+.corner-flourish.tr{
+  top:18px;
+  right:18px;
+
+  transform:scaleX(-1);
+}
+
+.corner-flourish.bl{
+  bottom:18px;
+  left:18px;
+
+  transform:scaleY(-1);
+}
+
+.corner-flourish.br{
+  bottom:18px;
+  right:18px;
+
+  transform:scale(-1);
+}
+
+/* ============================================================
+   FRONT FACE
+   ============================================================ */
+
+.face-front{
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  padding:
+    clamp(28px,6%,56px);
+
+  z-index:1;
+}
+
+/* Small top label */
+.front-label{
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-style:italic;
+
+  letter-spacing:.14em;
+
+  font-size:
+    clamp(.75rem,1.6vw,.95rem);
+
+  color:var(--gold);
+
+  margin:
+    0 0
+    clamp(14px,3vh,22px);
+
+  position:relative;
+
+  z-index:2;
+}
+
+/* ============================================================
+   BOOK EMBLEM
+   ============================================================ */
+
+.front-emblem{
+  width:
+    clamp(52px,9vw,72px);
+
+  height:
+    clamp(52px,9vw,72px);
+
+  margin-bottom:
+    clamp(14px,3vh,22px);
+
+  position:relative;
+
+  z-index:2;
+
+  filter:
+    drop-shadow(
+      0 3px 4px rgba(181,138,63,.10)
+    );
+}
+
+.front-emblem .page-l,
+.front-emblem .page-r{
+  position:absolute;
+
+  top:20%;
+
+  width:46%;
+  height:60%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fdfaf1,
+      #f0e6cf
+    );
+
+  border:
+    1px solid var(--gold-line);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7);
+}
+
+.front-emblem .page-l{
+  left:2%;
+
+  border-radius:
+    4px 1px 1px 12px;
+
+  transform:
+    perspective(200px)
+    rotateY(18deg);
+
+  transform-origin:right center;
+}
+
+.front-emblem .page-r{
+  right:2%;
+
+  border-radius:
+    1px 4px 12px 1px;
+
+  transform:
+    perspective(200px)
+    rotateY(-18deg);
+
+  transform-origin:left center;
+}
+
+.front-emblem .spine-line{
+  position:absolute;
+
+  left:50%;
+
+  top:18%;
+  bottom:18%;
+
+  width:2px;
+
+  background:var(--gold);
+
+  transform:translateX(-50%);
+}
+
+.front-emblem .star{
+  position:absolute;
+
+  top:-12%;
+  left:50%;
+
+  width:14px;
+  height:14px;
+
+  transform:translateX(-50%);
+}
+
+.front-emblem .star::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:var(--gold);
+
+  clip-path:
+    polygon(
+      50% 0%,
+      61% 39%,
+      100% 50%,
+      61% 61%,
+      50% 100%,
+      39% 61%,
+      0% 50%,
+      39% 39%
+    );
+}
+
+/* ============================================================
+   FRONT TYPOGRAPHY
+   ============================================================ */
+
+.front-heading{
+  font-size:
+    clamp(1.55rem,5.4vw,2.6rem);
+
+  font-weight:600;
+
+  line-height:1.18;
+
+  color:var(--navy);
+
+  margin:
+    0 0
+    clamp(12px,2.6vh,18px);
+
+  letter-spacing:.01em;
+
+  position:relative;
+  z-index:2;
+
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.5);
+}
+
+.front-rule{
+  width:46px;
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--gold-line),
+      transparent
+    );
+
+  margin-bottom:
+    clamp(12px,2.6vh,18px);
+
+  position:relative;
+  z-index:2;
+}
+
+.front-sub{
+  font-size:
+    clamp(1rem,2.6vw,1.2rem);
+
+  font-style:italic;
+
+  color:var(--ink-muted);
+
+  max-width:34ch;
+
+  line-height:1.5;
+
+  margin:0;
+
+  position:relative;
+  z-index:2;
+}
+
+/* ============================================================
+   FRONT HINT
+   ============================================================ */
+
+.front-hint{
+  position:absolute;
+
+  bottom:
+    clamp(18px,4vh,30px);
+
+  left:0;
+  right:0;
+
+  text-align:center;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  font-size:.7rem;
+
+  letter-spacing:.08em;
+
+  color:var(--ink-muted);
+
+  opacity:.65;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:8px;
+
+  z-index:5;
+}
+
+.front-hint .tap-dot{
+  width:6px;
+  height:6px;
+
+  border-radius:50%;
+
+  background:var(--gold);
+
+  animation:
+    pulse-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-dot{
+  0%,100%{
+    opacity:.4;
+    transform:scale(.85);
+  }
+
+  50%{
+    opacity:1;
+    transform:scale(1.15);
+  }
+}
+
+/* ============================================================
+   INSIDE FACE
+   ============================================================ */
+
+.face-inside{
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+
+  padding:
+    clamp(30px,7%,64px);
+
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+
+  transform:rotateY(180deg);
+
+  opacity:0;
+
+  transition:
+    opacity var(--dur-med) var(--ease-settle);
+
+  z-index:1;
+}
+
+.inside-salutation{
+  font-size:
+    clamp(1.1rem,2.9vw,1.35rem);
+
+  font-style:italic;
+
+  color:var(--gold);
+
+  margin:
+    0 0
+    clamp(10px,2vh,16px);
+}
+
+.inside-message{
+  font-size:
+    clamp(1rem,2.5vw,1.18rem);
+
+  line-height:1.68;
+
+  color:var(--navy-soft);
+
+  max-width:46ch;
+}
+
+.inside-message p{
+  margin:
+    0 0 .9em;
+}
+
+.inside-message p:last-child{
+  margin-bottom:0;
+}
+
+.inside-signoff{
+  margin-top:
+    clamp(16px,3vh,24px);
+
+  font-size:
+    clamp(1.05rem,2.7vw,1.25rem);
+
+  font-style:italic;
+
+  color:var(--navy);
+
+  position:relative;
+
+  padding-top:
+    clamp(12px,2vh,18px);
+}
+
+.inside-signoff::before{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:0;
+
+  width:40px;
+  height:1px;
+
+  background:var(--gold-line);
+}
+
+.inside-close-hint{
+  position:absolute;
+
+  top:
+    clamp(14px,3vh,22px);
+
+  right:
+    clamp(16px,4vw,26px);
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  font-size:.68rem;
+
+  letter-spacing:.06em;
+
+  color:var(--ink-muted);
+
+  opacity:.55;
+}
+
+/* ============================================================
+   OPEN STATE
+   ============================================================ */
+
+.card-wrap.is-open .card{
+  transform:
+    rotateY(180deg)
+    translateZ(0);
+
+  transition:
+    transform var(--dur-slow) var(--ease-settle);
+}
+
+.card-wrap.is-open .card-shadow{
+  opacity:.6;
+
+  transform:scale(.92);
+}
+
+.card-wrap.is-anticipating .card{
+  transform:
+    rotateX(-3deg)
+    scale(.985)
+    translateY(4px);
+
+  transition:
+    transform 180ms var(--ease-silk);
+}
+
+.card-wrap.is-open .face-inside{
+  opacity:1;
+
+  transition:
+    opacity 480ms ease-out 640ms;
+}
+
+/* ============================================================
+   LIGHT SWEEP
+   ============================================================ */
+
+.light-sweep{
+  position:absolute;
+
+  inset:-20%;
+
+  z-index:20;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(255,255,255,.55) 48%,
+      transparent 62%
+    );
+
+  transform:translateX(-120%);
+
+  opacity:0;
+}
+
+.card-wrap.is-open .light-sweep{
+  animation:
+    sweep 1.05s var(--ease-silk) 260ms 1;
+}
+
+@keyframes sweep{
+  0%{
+    transform:translateX(-120%);
+    opacity:0;
+  }
+
+  12%{
+    opacity:.9;
+  }
+
+  55%{
+    opacity:.5;
+  }
+
+  100%{
+    transform:translateX(120%);
+    opacity:0;
+  }
+}
+
+/* ============================================================
+   PETAL BURST
+   ============================================================ */
+
+.petal-burst{
+  position:absolute;
+
+  inset:0;
+
+  z-index:15;
+
+  pointer-events:none;
+
+  overflow:visible;
+}
+
+.burst-petal{
+  position:absolute;
+
+  top:46%;
+  left:50%;
+
+  width:10px;
+  height:14px;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #fbeee0,
+      var(--gold-soft) 75%
+    );
+
+  border-radius:
+    60% 60% 60% 60% /
+    80% 80% 40% 40%;
+
+  opacity:0;
+}
+
+.card-wrap.is-open .burst-petal{
+  animation:
+    burst 1.3s var(--ease-silk) forwards;
+}
+
+@keyframes burst{
+  0%{
+    opacity:0;
+
+    transform:
+      translate(-50%,-50%)
+      rotate(0deg)
+      scale(.4);
+  }
+
+  18%{
+    opacity:.85;
+  }
+
+  100%{
+    opacity:0;
+
+    transform:
+      translate(
+        calc(-50% + var(--bx)),
+        calc(-50% + var(--by))
+      )
+      rotate(var(--brot))
+      scale(.9);
+  }
+}
+
+/* ============================================================
+   PRESS FEEDBACK
+   ============================================================ */
+
+.card.is-pressed{
+  filter:brightness(.99);
+}
+
+/* ============================================================
+   RESPONSIVE DECOR
+   ============================================================ */
+
+@media (max-width:640px){
+
+  .decor-density-low{
+    display:none;
+  }
+
+  .decor-item{
+    opacity:.4;
+    transform:scale(.8);
+  }
+
+  .card-wrap{
+    margin:14px;
+  }
+
+  .card-face{
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.7),
+      inset 0 -1px 0 rgba(90,82,64,.08),
+      0 20px 42px -18px rgba(22,32,46,.30),
+      0 7px 16px -10px rgba(22,32,46,.20);
+  }
+
+  .inside-message{
+    line-height:1.58;
+  }
+}
+
+/* Short screens */
+@media (max-height:560px){
+
+  .decor-density-low,
+  .decor-density-med{
+    display:none;
+  }
+
+  .front-label{
+    margin-bottom:10px;
+  }
+
+  .front-emblem{
+    margin-bottom:10px;
+  }
+
+  .front-hint{
+    bottom:12px;
+  }
+}
+
+/* Landscape phones */
+@media (max-height:480px) and (orientation:landscape){
+
+  :root{
+    --card-h:clamp(300px,92dvh,620px);
+    --card-w:clamp(280px,60vh,520px);
+  }
+
+  .face-front,
+  .face-inside{
+    padding:24px 42px;
+  }
+
+  .front-heading{
+    font-size:clamp(1.4rem,5vw,2.2rem);
+  }
+
+  .inside-message{
+    font-size:.95rem;
+    line-height:1.45;
+  }
+}
+
+/* Very narrow devices */
+@media (max-width:360px){
+
+  :root{
+    --card-w:calc(100vw - 24px);
+  }
+
+  .face-front,
+  .face-inside{
+    padding-left:26px;
+    padding-right:26px;
+  }
+
+  .front-sub{
+    max-width:28ch;
+  }
+
+  .inside-message{
+    font-size:.94rem;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:200ms !important;
+    scroll-behavior:auto !important;
+  }
+
+  .card-wrap.is-open .card{
+    transform:rotateY(180deg);
+  }
+
+  .light-sweep,
+  .burst-petal{
+    display:none;
+  }
+}
+
+/* ============================================================
+   SCREEN READER ONLY
+   ============================================================ */
+
+.sr-only{
+  position:absolute;
+
+  width:1px;
+  height:1px;
+
+  padding:0;
+  margin:-1px;
+
+  overflow:hidden;
+
+  clip:rect(0,0,0,0);
+
+  white-space:nowrap;
+
+  border:0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-wash" aria-hidden="true"></div>
+<div class="bg-grain" aria-hidden="true"></div>
+<div class="bg-vignette" aria-hidden="true"></div>
+
+<main class="stage">
+
+  <!-- ========================================================
+       DECORATIVE ENVIRONMENT
+       ======================================================== -->
+
+  <div
+    class="decor-layer"
+    aria-hidden="true"
+    id="decorLayer"
+  >
+
+    <!-- FLOWER 1 -->
+    <div
+      class="decor-item flower sway"
+      style="top:6%; left:4%;"
+    >
+      <div class="stem"></div>
+
+      <div class="leaf l"></div>
+      <div class="leaf r"></div>
+
+      <div class="blossom">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+
+    <!-- FLOWER 2 -->
+    <div
+      class="decor-item flower sway decor-density-med"
+      style="
+        bottom:5%;
+        right:6%;
+        animation-delay:-2.4s;
+      "
+    >
+      <div class="stem"></div>
+
+      <div class="leaf l"></div>
+      <div class="leaf r"></div>
+
+      <div class="blossom">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+
+    <!-- FLOWER 3 -->
+    <div
+      class="decor-item flower sway decor-density-low"
+      style="
+        top:10%;
+        right:10%;
+        transform:scale(.7);
+        animation-delay:-4.1s;
+      "
+    >
+      <div class="stem"></div>
+
+      <div class="leaf l"></div>
+      <div class="leaf r"></div>
+
+      <div class="blossom">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+
+    <!-- FLOWER 4 -->
+    <div
+      class="decor-item flower sway decor-density-low"
+      style="
+        bottom:8%;
+        left:9%;
+        transform:scale(.75);
+        animation-delay:-1.2s;
+      "
+    >
+      <div class="stem"></div>
+
+      <div class="leaf l"></div>
+      <div class="leaf r"></div>
+
+      <div class="blossom">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+
+    <!-- BOOK -->
+    <div
+      class="decor-item doodle-book float-slow decor-density-med"
+      style="
+        top:16%;
+        left:14%;
+        --rot:-6deg;
+      "
+    >
+      <div class="cover"></div>
+      <div class="spine"></div>
+      <div class="pages"></div>
+    </div>
+
+    <!-- PENCIL -->
+    <div
+      class="decor-item doodle-pencil float-med decor-density-med"
+      style="
+        bottom:18%;
+        right:15%;
+        --rot:14deg;
+      "
+    >
+      <div class="body"></div>
+      <div class="tip"></div>
+      <div class="lead"></div>
+    </div>
+
+    <!-- CAP -->
+    <div
+      class="decor-item doodle-cap float-slower decor-density-low"
+      style="
+        top:8%;
+        left:44%;
+        --rot:0deg;
+      "
+    >
+      <div class="board"></div>
+      <div class="base"></div>
+      <div class="tassel"></div>
+    </div>
+
+    <!-- GLASSES -->
+    <div
+      class="decor-item doodle-glasses float-slow decor-density-low"
+      style="
+        bottom:12%;
+        left:20%;
+        --rot:-4deg;
+      "
+    >
+      <div class="lens left"></div>
+      <div class="lens right"></div>
+      <div class="bridge"></div>
+    </div>
+
+    <!-- BULB -->
+    <div
+      class="decor-item doodle-bulb float-med decor-density-low"
+      style="
+        top:22%;
+        right:6%;
+        --rot:0deg;
+      "
+    >
+      <div class="glass"></div>
+      <div class="base"></div>
+      <div class="filament"></div>
+    </div>
+
+    <!-- STARS -->
+    <div
+      class="decor-item doodle-star float-slow decor-density-low"
+      style="
+        top:34%;
+        left:5%;
+      "
+    ></div>
+
+    <div
+      class="decor-item doodle-star float-med decor-density-low"
+      style="
+        bottom:30%;
+        right:4%;
+      "
+    ></div>
+
+    <div
+      class="decor-item doodle-star float-slower decor-density-low"
+      style="
+        top:5%;
+        left:24%;
+        transform:scale(.65);
+      "
+    ></div>
+
+    <!-- PARTICLES -->
+    <div
+      class="drift-particle"
+      style="
+        left:18%;
+        bottom:10%;
+        animation-delay:0s;
+      "
+    ></div>
+
+    <div
+      class="drift-particle"
+      style="
+        left:76%;
+        bottom:14%;
+        animation-delay:-4s;
+      "
+    ></div>
+
+    <div
+      class="drift-particle"
+      style="
+        left:52%;
+        bottom:6%;
+        animation-delay:-8s;
+      "
+    ></div>
+
+    <div
+      class="drift-particle"
+      style="
+        left:34%;
+        bottom:20%;
+        animation-delay:-2.5s;
+      "
+    ></div>
+
+  </div>
+
+  <!-- ========================================================
+       CARD
+       ======================================================== -->
+
+  <div
+    class="card-wrap"
+    id="cardWrap"
+  >
+
+    <div
+      class="card-shadow"
+      aria-hidden="true"
+    ></div>
+
+    <div
+      class="card"
+      id="card"
+      role="button"
+      tabindex="0"
+      aria-pressed="false"
+      aria-label="Teachers' Day greeting card. Press to open and read the message."
+    >
+
+      <!-- ====================================================
+           FRONT
+           ==================================================== -->
+
+      <section
+        class="card-face face-front"
+        aria-hidden="false"
+      >
+
+        <div
+          class="card-border"
+          aria-hidden="true"
+        ></div>
+
+        <span
+          class="corner-flourish tl"
+          aria-hidden="true"
+        ></span>
+
+        <span
+          class="corner-flourish tr"
+          aria-hidden="true"
+        ></span>
+
+        <span
+          class="corner-flourish bl"
+          aria-hidden="true"
+        ></span>
+
+        <span
+          class="corner-flourish br"
+          aria-hidden="true"
+        ></span>
+
+        <p class="front-label">
+          With Gratitude
+        </p>
+
+        <div
+          class="front-emblem"
+          aria-hidden="true"
+        >
+
+          <div class="star"></div>
+
+          <div class="page-l"></div>
+          <div class="page-r"></div>
+
+          <div class="spine-line"></div>
+
+        </div>
+
+        <h1 class="front-heading">
+          Happy Teachers' Day
+        </h1>
+
+        <div
+          class="front-rule"
+          aria-hidden="true"
+        ></div>
+
+        <p class="front-sub">
+          To the mentors who turn lessons into lifelong memories.
+        </p>
+
+        <p class="front-hint">
+          <span
+            class="tap-dot"
+            aria-hidden="true"
+          ></span>
+
+          Tap to open
+        </p>
+
+      </section>
+
+      <!-- ====================================================
+           INSIDE
+           ==================================================== -->
+
+      <section
+        class="card-face face-inside"
+        aria-hidden="true"
+      >
+
+        <div
+          class="card-border"
+          aria-hidden="true"
+        ></div>
+
+        <span
+          class="corner-flourish tl"
+          aria-hidden="true"
+        ></span>
+
+        <span
+          class="corner-flourish br"
+          aria-hidden="true"
+        ></span>
+
+        <p class="inside-close-hint">
+          Tap to close
+        </p>
+
+        <p class="inside-salutation">
+          Dear Teacher,
+        </p>
+
+        <div class="inside-message">
+
+          <p>
+            Some lessons live only in a notebook. Yours live in the way we think, the questions we now ask, and the quiet confidence we carry into rooms we once found intimidating.
+          </p>
+
+          <p>
+            You noticed the effort behind the wrong answer, made room for the shy hand that finally went up, and treated our curiosity like something worth protecting. Little of that was in the syllabus — and all of it stayed with us.
+          </p>
+
+          <p>
+            Thank you for believing in us, challenging us, and helping us become a little better, one ordinary day at a time.
+          </p>
+
+        </div>
+
+        <p class="inside-signoff">
+          With gratitude, always.
+        </p>
+
+      </section>
+
+      <!-- EFFECTS -->
+
+      <div
+        class="light-sweep"
+        aria-hidden="true"
+      ></div>
+
+      <div
+        class="petal-burst"
+        id="petalBurst"
+        aria-hidden="true"
+      ></div>
+
+    </div>
+
+  </div>
+
+</main>
+
+<p
+  class="sr-only"
+  id="liveRegion"
+  aria-live="polite"
+></p>
+
+<script>
+(function(){
+
+  "use strict";
+
+  /* ==========================================================
+     ELEMENTS
+     ========================================================== */
+
+  var cardWrap   = document.getElementById("cardWrap");
+  var card       = document.getElementById("card");
+  var petalBurst = document.getElementById("petalBurst");
+  var liveRegion = document.getElementById("liveRegion");
+
+  var frontFace  = card.querySelector(".face-front");
+  var insideFace = card.querySelector(".face-inside");
+
+  /* ==========================================================
+     STATE
+     ========================================================== */
+
+  var isOpen = false;
+
+  var prefersReducedMotion =
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+  var supportsHover =
+    window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    ).matches;
+
+  /* Used to prevent animation race conditions when clicking
+     repeatedly during the flip. */
+  var transitionToken = 0;
+
+  /* ==========================================================
+     PETAL BURST
+     ========================================================== */
+
+  function buildPetalBurst(){
+
+    var count =
+      prefersReducedMotion
+        ? 0
+        : 12;
+
+    for(var i = 0; i < count; i++){
+
+      var p =
+        document.createElement("span");
+
+      p.className = "burst-petal";
+
+      var angle =
+        (Math.PI * 2 * i) / count +
+        (Math.random() * 0.5);
+
+      var dist =
+        70 +
+        Math.random() * 90;
+
+      var bx =
+        Math.cos(angle) * dist;
+
+      var by =
+        Math.sin(angle) * dist - 30;
+
+      var rot =
+        (
+          Math.random() * 240 -
+          120
+        ).toFixed(0) + "deg";
+
+      p.style.setProperty(
+        "--bx",
+        bx.toFixed(0) + "px"
+      );
+
+      p.style.setProperty(
+        "--by",
+        by.toFixed(0) + "px"
+      );
+
+      p.style.setProperty(
+        "--brot",
+        rot
+      );
+
+      p.style.animationDelay =
+        (
+          Math.random() * 180
+        ) + "ms";
+
+      petalBurst.appendChild(p);
+    }
+  }
+
+  buildPetalBurst();
+
+  /* ==========================================================
+     OPEN / CLOSE
+     ========================================================== */
+
+  function setOpen(open){
+
+    if(open === isOpen){
+      return;
+    }
+
+    /*
+      IMPORTANT FIX:
+      Pointer tilt previously applied an inline transform.
+      That inline transform could override the CSS flip and
+      prevent the card from opening correctly while the cursor
+      remained over the card.
+    */
+    resetTilt();
+
+    isOpen = open;
+
+    transitionToken++;
+
+    var currentToken =
+      transitionToken;
+
+    card.setAttribute(
+      "aria-pressed",
+      String(isOpen)
+    );
+
+    card.setAttribute(
+      "aria-label",
+      isOpen
+        ? "Teachers' Day card, open. Press to close."
+        : "Teachers' Day greeting card. Press to open and read the message."
+    );
+
+    frontFace.setAttribute(
+      "aria-hidden",
+      String(isOpen)
+    );
+
+    insideFace.setAttribute(
+      "aria-hidden",
+      String(!isOpen)
+    );
+
+    liveRegion.textContent =
+      isOpen
+        ? "Card opened. Message revealed."
+        : "Card closed.";
+
+    cardWrap.classList.add(
+      "is-anticipating"
+    );
+
+    window.setTimeout(
+      function(){
+
+        /*
+          Prevent an older animation from changing the card
+          after a newer click has already happened.
+        */
+        if(currentToken !== transitionToken){
+          return;
+        }
+
+        cardWrap.classList.remove(
+          "is-anticipating"
+        );
+
+        cardWrap.classList.toggle(
+          "is-open",
+          isOpen
+        );
+
+      },
+      prefersReducedMotion
+        ? 0
+        : 160
+    );
+  }
+
+  function toggle(){
+    setOpen(!isOpen);
+  }
+
+  /* ==========================================================
+     MOUSE / KEYBOARD
+     ========================================================== */
+
+  card.addEventListener(
+    "click",
+    toggle
+  );
+
+  card.addEventListener(
+    "keydown",
+    function(e){
+
+      if(
+        e.key === "Enter" ||
+        e.key === " " ||
+        e.key === "Spacebar"
+      ){
+
+        e.preventDefault();
+
+        toggle();
+      }
+    }
+  );
+
+  /* ==========================================================
+     3D TILT
+     ========================================================== */
+
+  var tiltRaf = null;
+
+  function applyTilt(clientX, clientY){
+
+    if(isOpen){
+      return;
+    }
+
+    var rect =
+      cardWrap.getBoundingClientRect();
+
+    var relX =
+      (clientX - rect.left) /
+      rect.width;
+
+    var relY =
+      (clientY - rect.top) /
+      rect.height;
+
+    var maxTilt = 6;
+
+    var rotY =
+      (relX - .5) *
+      maxTilt *
+      2;
+
+    var rotX =
+      -(relY - .5) *
+      maxTilt *
+      2;
+
+    if(tiltRaf){
+      cancelAnimationFrame(
+        tiltRaf
+      );
+    }
+
+    tiltRaf =
+      requestAnimationFrame(
+        function(){
+
+          if(isOpen){
+            return;
+          }
+
+          card.style.transition =
+            "transform 120ms ease-out";
+
+          card.style.transform =
+            "rotateY(" +
+            rotY +
+            "deg) rotateX(" +
+            rotX +
+            "deg)";
+        }
+      );
+  }
+
+  function resetTilt(){
+
+    if(tiltRaf){
+      cancelAnimationFrame(
+        tiltRaf
+      );
+
+      tiltRaf = null;
+    }
+
+    card.style.transition = "";
+    card.style.transform = "";
+  }
+
+  if(
+    supportsHover &&
+    !prefersReducedMotion
+  ){
+
+    cardWrap.addEventListener(
+      "mousemove",
+      function(e){
+
+        applyTilt(
+          e.clientX,
+          e.clientY
+        );
+      }
+    );
+
+    cardWrap.addEventListener(
+      "mouseleave",
+      resetTilt
+    );
+  }
+
+  /* ==========================================================
+     PRESS FEEDBACK
+     ========================================================== */
+
+  function pressDown(){
+    card.classList.add(
+      "is-pressed"
+    );
+  }
+
+  function pressUp(){
+    card.classList.remove(
+      "is-pressed"
+    );
+  }
+
+  card.addEventListener(
+    "pointerdown",
+    pressDown
+  );
+
+  card.addEventListener(
+    "pointerup",
+    pressUp
+  );
+
+  card.addEventListener(
+    "pointercancel",
+    pressUp
+  );
+
+  card.addEventListener(
+    "pointerleave",
+    pressUp
+  );
+
+  /* ==========================================================
+     SOFT CHIME
+     ========================================================== */
+
+  var audioCtx = null;
+
+  function playChime(){
+
+    if(prefersReducedMotion){
+      return;
+    }
+
+    try{
+
+      var AudioCtx =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+      if(!AudioCtx){
+        return;
+      }
+
+      if(!audioCtx){
+
+        audioCtx =
+          new AudioCtx();
+      }
+
+      if(
+        audioCtx.state ===
+        "suspended"
+      ){
+
+        audioCtx.resume();
+      }
+
+      var now =
+        audioCtx.currentTime;
+
+      var freqs = [
+        660,
+        880,
+        1108.73
+      ];
+
+      freqs.forEach(
+        function(freq, i){
+
+          var osc =
+            audioCtx.createOscillator();
+
+          var gain =
+            audioCtx.createGain();
+
+          osc.type = "sine";
+
+          osc.frequency.value =
+            freq;
+
+          var start =
+            now + i * .07;
+
+          gain.gain.setValueAtTime(
+            0,
+            start
+          );
+
+          gain.gain.linearRampToValueAtTime(
+            .045,
+            start + .04
+          );
+
+          gain.gain.exponentialRampToValueAtTime(
+            .0001,
+            start + .9
+          );
+
+          osc.connect(gain);
+
+          gain.connect(
+            audioCtx.destination
+          );
+
+          osc.start(start);
+
+          osc.stop(
+            start + 1
+          );
+        }
+      );
+
+    }catch(err){
+
+      /*
+        Sound is purely decorative.
+        If the browser blocks Web Audio,
+        the website continues normally.
+      */
+    }
+  }
+
+  /*
+    Only play the chime when the card actually transitions
+    from closed -> open.
+  */
+  card.addEventListener(
+    "click",
+    function(){
+
+      if(isOpen){
+        playChime();
+      }
+
+    }
+  );
+
+  /* ==========================================================
+     RESIZE / ORIENTATION
+     ========================================================== */
+
+  window.addEventListener(
+    "resize",
+    resetTilt
+  );
+
+  window.addEventListener(
+    "orientationchange",
+    resetTilt
+  );
+
+})();
+</script>
+
+</body>
+</html>
