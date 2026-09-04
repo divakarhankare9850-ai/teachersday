@@ -4,51 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#f6f0e4">
-<meta name="description" content="A heartfelt Teachers' Day greeting card with gratitude.">
-
+<meta name="description" content="Happy Teachers' Day — With Gratitude">
 <title>Happy Teachers' Day — With Gratitude</title>
 
-<!-- Kept as a single-file website. Tailwind is not required by the design,
-     but the original dependency is retained for compatibility. -->
-<script src="https://cdn.tailwindcss.com"></script>
-
 <style>
-/* ============================================================
-   DESIGN TOKENS
-   ============================================================ */
 :root{
-  --ivory:        #f6f0e4;
-  --ivory-deep:   #efe6d4;
-  --paper-edge:   #e7dcc4;
+  --ivory:#f6f0e4;
+  --ivory-deep:#efe6d4;
+  --paper-edge:#e7dcc4;
+  --navy:#1f2b3d;
+  --navy-deep:#16202e;
+  --navy-soft:#35455c;
+  --gold:#b58a3f;
+  --gold-soft:#d4b573;
+  --gold-line:#c9a35c;
+  --sage:#7c9377;
+  --sage-deep:#5c7357;
+  --ink-muted:#5a5240;
 
-  --navy:         #1f2b3d;
-  --navy-deep:    #16202e;
-  --navy-soft:    #35455c;
+  --card-w:clamp(300px,88vw,620px);
+  --card-h:clamp(420px,78dvh,780px);
+  --radius:clamp(10px,1.4vw,18px);
 
-  --gold:         #b58a3f;
-  --gold-soft:    #d4b573;
-  --gold-line:    #c9a35c;
-
-  --sage:         #7c9377;
-  --sage-deep:    #5c7357;
-
-  --ink-muted:    #5a5240;
-
-  --card-w: clamp(300px, 88vw, 620px);
-  --card-h: clamp(420px, 78dvh, 780px);
-  --radius: clamp(10px, 1.4vw, 18px);
-
-  --dur-fast: 220ms;
-  --dur-med: 620ms;
-  --dur-slow: 1400ms;
-
-  --ease-silk: cubic-bezier(.22,.61,.36,1);
-  --ease-settle: cubic-bezier(.16,.84,.44,1);
+  --ease-silk:cubic-bezier(.22,.61,.36,1);
+  --ease-soft:cubic-bezier(.16,.84,.44,1);
 }
-
-/* ============================================================
-   RESET
-   ============================================================ */
 
 *{
   box-sizing:border-box;
@@ -62,69 +42,24 @@ body{
 }
 
 body{
-  font-family:
-    "Cormorant Garamond",
-    "Iowan Old Style",
-    "Baskerville",
-    "Times New Roman",
-    Georgia,
-    serif;
-
+  font-family:'Cormorant Garamond',Georgia,serif;
   background:var(--ivory);
   color:var(--navy);
-
   overflow:hidden;
   min-height:100dvh;
-
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
-
   touch-action:manipulation;
 }
 
-/* Display type */
-h1,
-h2,
-.font-display{
-  font-family:
-    "Playfair Display",
-    "Iowan Old Style",
-    "Baskerville",
-    "Times New Roman",
-    Georgia,
-    serif;
-}
-
-/* Utility type */
-.font-label{
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-}
-
-/* ============================================================
+/* ==========================================================
    BACKGROUND
-   ============================================================ */
-
-.stage{
-  position:relative;
-  width:100%;
-  min-height:100dvh;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  isolation:isolate;
-}
+   ========================================================== */
 
 .bg-wash{
   position:fixed;
   inset:0;
   z-index:0;
-
   background:
     radial-gradient(
       ellipse 60% 45% at 50% 38%,
@@ -146,30 +81,40 @@ h2,
       var(--ivory) 0%,
       var(--ivory-deep) 100%
     );
+
+  animation:
+    background-breathe 12s ease-in-out infinite;
+}
+
+@keyframes background-breathe{
+  0%,100%{
+    filter:brightness(1);
+  }
+  50%{
+    filter:brightness(1.012);
+  }
 }
 
 .bg-grain{
   position:fixed;
   inset:0;
   z-index:1;
-
   pointer-events:none;
-
-  opacity:.5;
+  opacity:.42;
   mix-blend-mode:multiply;
 
   background-image:
     repeating-linear-gradient(
       0deg,
-      rgba(90,82,64,.015) 0px,
-      rgba(90,82,64,.015) 1px,
+      rgba(90,82,64,.018) 0,
+      rgba(90,82,64,.018) 1px,
       transparent 1px,
       transparent 3px
     ),
     repeating-linear-gradient(
       90deg,
-      rgba(90,82,64,.012) 0px,
-      rgba(90,82,64,.012) 1px,
+      rgba(90,82,64,.014) 0,
+      rgba(90,82,64,.014) 1px,
       transparent 1px,
       transparent 3px
     );
@@ -179,7 +124,6 @@ h2,
   position:fixed;
   inset:0;
   z-index:2;
-
   pointer-events:none;
 
   background:
@@ -190,60 +134,59 @@ h2,
     );
 }
 
-/* Soft central glow */
-.stage::after{
-  content:"";
-  position:fixed;
-  width:min(70vw,700px);
-  height:min(70vw,700px);
+/* ==========================================================
+   STAGE
+   ========================================================== */
 
-  left:50%;
-  top:50%;
+.stage{
+  position:relative;
+  width:100%;
+  min-height:100dvh;
 
-  transform:translate(-50%,-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.30),
-      transparent 68%
-    );
-
-  pointer-events:none;
-  z-index:2;
-
-  filter:blur(12px);
+  isolation:isolate;
 }
 
-/* ============================================================
-   DECORATIVE ENVIRONMENT
-   ============================================================ */
+/* ==========================================================
+   DECORATION
+   ========================================================== */
 
 .decor-layer{
   position:fixed;
   inset:0;
-
   z-index:3;
-
   pointer-events:none;
   overflow:hidden;
+
+  opacity:1;
+
+  transition:
+    filter 1.2s var(--ease-soft),
+    opacity 1.2s var(--ease-soft);
+}
+
+.decor-layer.is-focused{
+  filter:
+    blur(2px)
+    saturate(.9)
+    brightness(.97);
+
+  opacity:.68;
 }
 
 .decor-item{
   position:absolute;
-
   opacity:.55;
-
   transform-origin:center;
-
   will-change:transform;
 }
 
-/* ============================================================
+/* ==========================================================
    FLOWERS
-   ============================================================ */
+   ========================================================== */
 
 .flower{
   position:absolute;
@@ -253,10 +196,8 @@ h2,
 
 .flower .stem{
   position:absolute;
-
   bottom:0;
   left:50%;
-
   width:2px;
   height:78px;
 
@@ -273,7 +214,6 @@ h2,
 
 .flower .leaf{
   position:absolute;
-
   width:20px;
   height:11px;
 
@@ -306,19 +246,15 @@ h2,
 
 .flower .blossom{
   position:absolute;
-
   top:0;
   left:50%;
-
   width:34px;
   height:34px;
-
   transform:translateX(-50%);
 }
 
 .flower .petal{
   position:absolute;
-
   width:16px;
   height:22px;
 
@@ -335,11 +271,7 @@ h2,
 
   top:50%;
   left:50%;
-
   transform-origin:bottom center;
-
-  box-shadow:
-    0 1px 2px rgba(181,138,63,.08);
 }
 
 .flower .petal:nth-child(1){
@@ -364,10 +296,8 @@ h2,
 
 .flower .center{
   position:absolute;
-
   top:50%;
   left:50%;
-
   width:9px;
   height:9px;
 
@@ -380,31 +310,32 @@ h2,
 
   border-radius:50%;
 
-  transform:translate(-50%,-50%);
+  transform:
+    translate(-50%,-50%);
 
   box-shadow:
-    0 0 4px rgba(181,138,63,.4);
+    0 0 5px rgba(181,138,63,.45);
 }
 
 .flower.sway{
-  animation:sway 7s ease-in-out infinite;
+  animation:
+    flower-sway 8s ease-in-out infinite;
 }
 
-@keyframes sway{
+@keyframes flower-sway{
   0%,100%{
-    transform:rotate(-2.2deg);
+    transform:rotate(-2deg);
   }
 
   50%{
-    transform:rotate(2.2deg);
+    transform:rotate(2.5deg);
   }
 }
 
-/* ============================================================
-   EDUCATION DOODLES
-   ============================================================ */
+/* ==========================================================
+   DOODLES
+   ========================================================== */
 
-/* Book */
 .doodle-book{
   width:46px;
   height:34px;
@@ -415,20 +346,17 @@ h2,
   inset:0;
 
   border:2px solid var(--navy-soft);
+  border-radius:3px 6px 6px 3px;
 
-  border-radius:
-    3px 6px 6px 3px;
-
-  background:rgba(255,252,244,.4);
+  background:
+    rgba(255,252,244,.4);
 }
 
 .doodle-book .spine{
   position:absolute;
-
   left:50%;
   top:-2px;
   bottom:-2px;
-
   width:2px;
 
   background:var(--navy-soft);
@@ -438,20 +366,15 @@ h2,
 
 .doodle-book .pages{
   position:absolute;
-
   left:4px;
   right:4px;
   top:3px;
   bottom:3px;
 
-  border-left:
-    1px solid rgba(53,69,92,.35);
-
-  border-right:
-    1px solid rgba(53,69,92,.35);
+  border-left:1px solid rgba(53,69,92,.35);
+  border-right:1px solid rgba(53,69,92,.35);
 }
 
-/* Pencil */
 .doodle-pencil{
   width:58px;
   height:10px;
@@ -459,10 +382,8 @@ h2,
 
 .doodle-pencil .body{
   position:absolute;
-
   left:0;
   top:0;
-
   width:44px;
   height:10px;
 
@@ -479,7 +400,6 @@ h2,
 
 .doodle-pencil .tip{
   position:absolute;
-
   left:44px;
   top:0;
 
@@ -491,12 +411,13 @@ h2,
   border-left:12px solid #e9dcc0;
 
   filter:
-    drop-shadow(1px 0 0 var(--navy-soft));
+    drop-shadow(
+      1px 0 0 var(--navy-soft)
+    );
 }
 
 .doodle-pencil .lead{
   position:absolute;
-
   left:54px;
   top:3.5px;
 
@@ -508,7 +429,6 @@ h2,
   border-left:4px solid var(--navy-deep);
 }
 
-/* Graduation cap */
 .doodle-cap{
   width:50px;
   height:34px;
@@ -516,41 +436,33 @@ h2,
 
 .doodle-cap .board{
   position:absolute;
-
   top:6px;
   left:3px;
-
   width:44px;
   height:8px;
 
   background:var(--navy-soft);
 
   transform:rotate(-2deg);
-
   border-radius:1px;
 }
 
 .doodle-cap .base{
   position:absolute;
-
   top:12px;
   left:15px;
-
   width:20px;
   height:12px;
 
   background:var(--navy);
 
-  border-radius:
-    0 0 40% 40%;
+  border-radius:0 0 40% 40%;
 }
 
 .doodle-cap .tassel{
   position:absolute;
-
   top:8px;
   left:24px;
-
   width:1.5px;
   height:16px;
 
@@ -558,10 +470,9 @@ h2,
 }
 
 .doodle-cap .tassel::after{
-  content:"";
+  content:'';
 
   position:absolute;
-
   bottom:-3px;
   left:-2px;
 
@@ -569,11 +480,9 @@ h2,
   height:5px;
 
   background:var(--gold);
-
   border-radius:50%;
 }
 
-/* Glasses */
 .doodle-glasses{
   width:52px;
   height:20px;
@@ -581,18 +490,16 @@ h2,
 
 .doodle-glasses .lens{
   position:absolute;
-
   top:0;
 
   width:20px;
   height:20px;
 
-  border:
-    2px solid var(--navy-soft);
-
+  border:2px solid var(--navy-soft);
   border-radius:50%;
 
-  background:rgba(255,255,255,.15);
+  background:
+    rgba(255,255,255,.15);
 }
 
 .doodle-glasses .lens.left{
@@ -605,7 +512,6 @@ h2,
 
 .doodle-glasses .bridge{
   position:absolute;
-
   top:8px;
   left:20px;
 
@@ -615,7 +521,6 @@ h2,
   background:var(--navy-soft);
 }
 
-/* Light bulb */
 .doodle-bulb{
   width:26px;
   height:40px;
@@ -623,16 +528,13 @@ h2,
 
 .doodle-bulb .glass{
   position:absolute;
-
   top:0;
   left:3px;
 
   width:20px;
   height:22px;
 
-  border:
-    2px solid var(--gold);
-
+  border:2px solid var(--gold);
   border-radius:50%;
 
   background:
@@ -645,37 +547,30 @@ h2,
 
 .doodle-bulb .base{
   position:absolute;
-
   top:20px;
   left:8px;
 
   width:10px;
   height:10px;
 
-  border:
-    1.5px solid var(--navy-soft);
-
+  border:1.5px solid var(--navy-soft);
   border-top:none;
 }
 
 .doodle-bulb .filament{
   position:absolute;
-
   top:8px;
   left:10px;
 
   width:6px;
   height:8px;
 
-  border:
-    1px solid var(--gold);
-
+  border:1px solid var(--gold);
   border-radius:2px;
 
   opacity:.7;
 }
 
-/* Stars */
 .doodle-star{
   width:18px;
   height:18px;
@@ -683,7 +578,7 @@ h2,
 
 .doodle-star::before,
 .doodle-star::after{
-  content:"";
+  content:'';
 
   position:absolute;
   inset:0;
@@ -711,23 +606,22 @@ h2,
   opacity:.6;
 }
 
-/* ============================================================
-   FLOATING DECORATION
-   ============================================================ */
-
 .float-slow{
-  animation:floaty 9s ease-in-out infinite;
+  animation:
+    float-slow 10s ease-in-out infinite;
 }
 
 .float-med{
-  animation:floaty 6.5s ease-in-out infinite;
+  animation:
+    float-med 7s ease-in-out infinite;
 }
 
 .float-slower{
-  animation:floaty 11s ease-in-out infinite;
+  animation:
+    float-slower 12s ease-in-out infinite;
 }
 
-@keyframes floaty{
+@keyframes float-slow{
   0%,100%{
     transform:
       translateY(0)
@@ -736,16 +630,48 @@ h2,
 
   50%{
     transform:
-      translateY(-10px)
+      translateY(-8px)
       rotate(
-        calc(var(--rot,0deg) + 3deg)
+        calc(var(--rot,0deg) + 2deg)
       );
   }
 }
 
-/* ============================================================
+@keyframes float-med{
+  0%,100%{
+    transform:
+      translateY(0)
+      rotate(var(--rot,0deg));
+  }
+
+  50%{
+    transform:
+      translateY(-11px)
+      rotate(
+        calc(var(--rot,0deg) - 2deg)
+      );
+  }
+}
+
+@keyframes float-slower{
+  0%,100%{
+    transform:
+      translateY(0)
+      rotate(var(--rot,0deg));
+  }
+
+  50%{
+    transform:
+      translateY(-7px)
+      rotate(
+        calc(var(--rot,0deg) + 2deg)
+      );
+  }
+}
+
+/* ==========================================================
    AMBIENT PARTICLES
-   ============================================================ */
+   ========================================================== */
 
 .drift-particle{
   position:absolute;
@@ -765,7 +691,7 @@ h2,
   opacity:0;
 
   animation:
-    drift 12s linear infinite;
+    drift 13s linear infinite;
 }
 
 @keyframes drift{
@@ -773,72 +699,71 @@ h2,
     opacity:0;
 
     transform:
-      translateY(0)
-      translateX(0);
+      translate3d(0,20px,0)
+      scale(.6);
   }
 
-  10%{
-    opacity:.6;
+  12%{
+    opacity:.5;
   }
 
-  90%{
-    opacity:.4;
+  70%{
+    opacity:.35;
   }
 
   100%{
     opacity:0;
 
     transform:
-      translateY(-140px)
-      translateX(20px);
+      translate3d(
+        25px,
+        -150px,
+        0
+      )
+      scale(1);
   }
 }
 
-/* ============================================================
-   CARD CONTAINER
-   ============================================================ */
+/* ==========================================================
+   CARD WRAPPER
+   ========================================================== */
 
 .card-wrap{
   position:relative;
-
   z-index:10;
 
   width:var(--card-w);
   height:var(--card-h);
 
   perspective:2400px;
+  -webkit-perspective:2400px;
 
-  /* Gives the card more breathing room */
-  margin:20px;
+  /*
+    Important:
+    The wrapper owns tilt.
+    The card owns the flip.
+  */
+
+  transform:
+    rotateX(0deg)
+    rotateY(0deg)
+    translateY(0);
+
+  transition:
+    transform 700ms var(--ease-soft);
 }
 
-/* Ambient glow behind card */
-.card-wrap::before{
-  content:"";
-
-  position:absolute;
-
-  inset:-25px;
-
-  border-radius:40px;
-
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(255,255,255,.42),
-      transparent 70%
-    );
-
-  filter:blur(18px);
-
-  z-index:-2;
-
-  opacity:.75;
+.card-wrap.is-open{
+  /*
+    Do not apply another transform here.
+    This prevents the opening animation from
+    fighting with the desktop tilt.
+  */
 }
 
-/* ============================================================
+/* ==========================================================
    CARD
-   ============================================================ */
+   ========================================================== */
 
 .card{
   position:relative;
@@ -849,20 +774,28 @@ h2,
   cursor:pointer;
 
   transform-style:preserve-3d;
+  -webkit-transform-style:preserve-3d;
 
-  transform:
-    rotateX(0deg)
-    rotateY(0deg);
+  transform:rotateY(0deg);
+  -webkit-transform:rotateY(0deg);
 
   transition:
-    transform var(--dur-fast) var(--ease-silk);
+    transform 1150ms var(--ease-silk),
+    -webkit-transform 1150ms var(--ease-silk),
+    filter 300ms ease;
+
+  will-change:transform;
 
   -webkit-tap-highlight-color:transparent;
-
   user-select:none;
+  -webkit-user-select:none;
 }
 
-/* Keyboard focus */
+.card-wrap.is-open .card{
+  transform:rotateY(180deg);
+  -webkit-transform:rotateY(180deg);
+}
+
 .card:focus-visible{
   outline:none;
 }
@@ -875,9 +808,13 @@ h2,
     0 10px 24px -10px rgba(22,32,46,.25);
 }
 
-/* ============================================================
+.card.is-pressed{
+  filter:brightness(.985);
+}
+
+/* ==========================================================
    CARD SHADOW
-   ============================================================ */
+   ========================================================== */
 
 .card-shadow{
   position:absolute;
@@ -895,18 +832,26 @@ h2,
       transparent 75%
     );
 
-  filter:blur(6px);
+  filter:blur(7px);
 
   z-index:-1;
 
   transition:
-    opacity var(--dur-med) var(--ease-silk),
-    transform var(--dur-med) var(--ease-silk);
+    opacity 900ms var(--ease-soft),
+    transform 900ms var(--ease-soft);
 }
 
-/* ============================================================
-   CARD FACE
-   ============================================================ */
+.card-wrap.is-open .card-shadow{
+  opacity:.48;
+
+  transform:
+    translateY(4px)
+    scale(.9);
+}
+
+/* ==========================================================
+   CARD FACES
+   ========================================================== */
 
 .card-face{
   position:absolute;
@@ -923,7 +868,7 @@ h2,
     );
 
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.7),
+    inset 0 1px 0 rgba(255,255,255,.65),
     inset 0 -1px 0 rgba(90,82,64,.08),
     0 24px 50px -20px rgba(22,32,46,.30),
     0 8px 18px -10px rgba(22,32,46,.22);
@@ -933,51 +878,52 @@ h2,
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
 
-  isolation:isolate;
+  transform-style:preserve-3d;
+  -webkit-transform-style:preserve-3d;
 }
 
-/* Paper texture */
 .card-face::before{
-  content:"";
+  content:'';
 
   position:absolute;
   inset:0;
 
-  background-image:
+  background:
     repeating-linear-gradient(
       115deg,
-      rgba(90,82,64,.025) 0px,
+      rgba(90,82,64,.025) 0,
       transparent 1.5px,
       transparent 4px
     );
+
+  mix-blend-mode:multiply;
+
+  opacity:.9;
 
   pointer-events:none;
 
   z-index:0;
 }
 
-/* Very subtle inner illumination */
 .card-face::after{
-  content:"";
+  content:'';
 
   position:absolute;
   inset:0;
 
   background:
     radial-gradient(
-      ellipse at 50% 15%,
-      rgba(255,255,255,.28),
-      transparent 55%
+      ellipse at 50% 10%,
+      rgba(255,255,255,.30),
+      transparent 60%
     );
 
   pointer-events:none;
-
-  z-index:0;
 }
 
-/* ============================================================
-   GOLD CARD BORDER
-   ============================================================ */
+/* ==========================================================
+   BORDER
+   ========================================================== */
 
 .card-border{
   position:absolute;
@@ -999,10 +945,9 @@ h2,
 }
 
 .card-border::before{
-  content:"";
+  content:'';
 
   position:absolute;
-
   inset:5px;
 
   border:
@@ -1012,9 +957,71 @@ h2,
     calc(var(--radius) - 10px);
 }
 
-/* ============================================================
-   CORNER FLOURISHES
-   ============================================================ */
+/* ==========================================================
+   FOIL SHIMMER
+   ========================================================== */
+
+.card-foil{
+  position:absolute;
+
+  inset:
+    clamp(10px,3%,20px);
+
+  border-radius:
+    calc(var(--radius) - 6px);
+
+  padding:1px;
+
+  background:
+    conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(212,181,115,.9) 10deg,
+      transparent 35deg,
+      transparent 325deg,
+      rgba(212,181,115,.9) 350deg,
+      transparent 360deg
+    );
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+
+  -webkit-mask-composite:xor;
+
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+
+  mask-composite:exclude;
+
+  opacity:.6;
+
+  pointer-events:none;
+
+  z-index:4;
+
+  /*
+    Slow and subtle instead of an aggressive rotation.
+  */
+
+  animation:
+    foil-spin 12s linear infinite;
+}
+
+@keyframes foil-spin{
+  0%{
+    transform:rotate(0deg);
+  }
+
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+/* ==========================================================
+   CORNERS
+   ========================================================== */
 
 .corner-flourish{
   position:absolute;
@@ -1026,12 +1033,12 @@ h2,
 
   opacity:.7;
 
-  z-index:4;
+  z-index:5;
 }
 
 .corner-flourish::before,
 .corner-flourish::after{
-  content:"";
+  content:'';
 
   position:absolute;
 
@@ -1080,15 +1087,13 @@ h2,
   transform:scale(-1);
 }
 
-/* ============================================================
+/* ==========================================================
    FRONT FACE
-   ============================================================ */
+   ========================================================== */
 
 .face-front{
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
   justify-content:center;
 
@@ -1098,13 +1103,14 @@ h2,
     clamp(28px,6%,56px);
 
   z-index:1;
+
+  transform:rotateY(0deg);
+  -webkit-transform:rotateY(0deg);
 }
 
-/* Small top label */
 .front-label{
   font-family:
-    "Cormorant Garamond",
-    Georgia,
+    'Cormorant Garamond',
     serif;
 
   font-style:italic;
@@ -1114,20 +1120,45 @@ h2,
   font-size:
     clamp(.75rem,1.6vw,.95rem);
 
-  color:var(--gold);
-
-  margin:
-    0 0
+  margin-bottom:
     clamp(14px,3vh,22px);
 
   position:relative;
 
-  z-index:2;
+  z-index:6;
+
+  background-image:
+    linear-gradient(
+      100deg,
+      var(--gold) 25%,
+      #f4e2b8 50%,
+      var(--gold) 75%
+    );
+
+  background-size:220% 100%;
+
+  -webkit-background-clip:text;
+  background-clip:text;
+
+  color:transparent;
+
+  animation:
+    label-shimmer 7s ease-in-out infinite;
 }
 
-/* ============================================================
+@keyframes label-shimmer{
+  0%,100%{
+    background-position:220% 0;
+  }
+
+  50%{
+    background-position:0 0;
+  }
+}
+
+/* ==========================================================
    BOOK EMBLEM
-   ============================================================ */
+   ========================================================== */
 
 .front-emblem{
   width:
@@ -1141,12 +1172,24 @@ h2,
 
   position:relative;
 
-  z-index:2;
+  z-index:6;
 
-  filter:
-    drop-shadow(
-      0 3px 4px rgba(181,138,63,.10)
-    );
+  animation:
+    emblem-breathe 5s ease-in-out infinite;
+}
+
+@keyframes emblem-breathe{
+  0%,100%{
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  50%{
+    transform:
+      translateY(-2px)
+      scale(1.015);
+  }
 }
 
 .front-emblem .page-l,
@@ -1167,9 +1210,6 @@ h2,
 
   border:
     1px solid var(--gold-line);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.7);
 }
 
 .front-emblem .page-l{
@@ -1202,7 +1242,6 @@ h2,
   position:absolute;
 
   left:50%;
-
   top:18%;
   bottom:18%;
 
@@ -1210,7 +1249,8 @@ h2,
 
   background:var(--gold);
 
-  transform:translateX(-50%);
+  transform:
+    translateX(-50%);
 }
 
 .front-emblem .star{
@@ -1222,11 +1262,27 @@ h2,
   width:14px;
   height:14px;
 
-  transform:translateX(-50%);
+  transform:
+    translateX(-50%);
+
+  animation:
+    star-glow 3.5s ease-in-out infinite;
+}
+
+@keyframes star-glow{
+  0%,100%{
+    opacity:.75;
+    filter:brightness(1);
+  }
+
+  50%{
+    opacity:1;
+    filter:brightness(1.25);
+  }
 }
 
 .front-emblem .star::before{
-  content:"";
+  content:'';
 
   position:absolute;
   inset:0;
@@ -1246,13 +1302,13 @@ h2,
     );
 }
 
-/* ============================================================
-   FRONT TYPOGRAPHY
-   ============================================================ */
+/* ==========================================================
+   FRONT TEXT
+   ========================================================== */
 
 .front-heading{
   font-size:
-    clamp(1.55rem,5.4vw,2.6rem);
+    clamp(1.55rem,9.2cqi,2.6rem);
 
   font-weight:600;
 
@@ -1267,10 +1323,8 @@ h2,
   letter-spacing:.01em;
 
   position:relative;
-  z-index:2;
 
-  text-shadow:
-    0 1px 0 rgba(255,255,255,.5);
+  z-index:6;
 }
 
 .front-rule{
@@ -1289,12 +1343,28 @@ h2,
     clamp(12px,2.6vh,18px);
 
   position:relative;
-  z-index:2;
+
+  z-index:6;
+
+  animation:
+    rule-breathe 4s ease-in-out infinite;
+}
+
+@keyframes rule-breathe{
+  0%,100%{
+    width:42px;
+    opacity:.7;
+  }
+
+  50%{
+    width:58px;
+    opacity:1;
+  }
 }
 
 .front-sub{
   font-size:
-    clamp(1rem,2.6vw,1.2rem);
+    clamp(1rem,4.4cqi,1.2rem);
 
   font-style:italic;
 
@@ -1304,15 +1374,10 @@ h2,
 
   line-height:1.5;
 
-  margin:0;
-
   position:relative;
-  z-index:2;
-}
 
-/* ============================================================
-   FRONT HINT
-   ============================================================ */
+  z-index:6;
+}
 
 .front-hint{
   position:absolute;
@@ -1328,7 +1393,7 @@ h2,
   font-family:
     -apple-system,
     BlinkMacSystemFont,
-    "Segoe UI",
+    'Segoe UI',
     sans-serif;
 
   font-size:.7rem;
@@ -1346,7 +1411,7 @@ h2,
 
   gap:8px;
 
-  z-index:5;
+  z-index:7;
 }
 
 .front-hint .tap-dot{
@@ -1358,110 +1423,45 @@ h2,
   background:var(--gold);
 
   animation:
-    pulse-dot 1.8s ease-in-out infinite;
+    pulse-dot 2s ease-in-out infinite;
 }
 
 @keyframes pulse-dot{
   0%,100%{
-    opacity:.4;
-    transform:scale(.85);
+    opacity:.35;
+
+    transform:scale(.8);
+
+    box-shadow:
+      0 0 0 rgba(181,138,63,0);
   }
 
   50%{
     opacity:1;
+
     transform:scale(1.15);
+
+    box-shadow:
+      0 0 12px rgba(181,138,63,.35);
   }
 }
 
-/* ============================================================
-   INSIDE FACE
-   ============================================================ */
+/* ==========================================================
+   INSIDE
+   ========================================================== */
 
 .face-inside{
   display:flex;
-
   flex-direction:column;
-
   justify-content:center;
 
   padding:
     clamp(30px,7%,64px);
 
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-
   transform:rotateY(180deg);
-
-  opacity:0;
-
-  transition:
-    opacity var(--dur-med) var(--ease-settle);
+  -webkit-transform:rotateY(180deg);
 
   z-index:1;
-}
-
-.inside-salutation{
-  font-size:
-    clamp(1.1rem,2.9vw,1.35rem);
-
-  font-style:italic;
-
-  color:var(--gold);
-
-  margin:
-    0 0
-    clamp(10px,2vh,16px);
-}
-
-.inside-message{
-  font-size:
-    clamp(1rem,2.5vw,1.18rem);
-
-  line-height:1.68;
-
-  color:var(--navy-soft);
-
-  max-width:46ch;
-}
-
-.inside-message p{
-  margin:
-    0 0 .9em;
-}
-
-.inside-message p:last-child{
-  margin-bottom:0;
-}
-
-.inside-signoff{
-  margin-top:
-    clamp(16px,3vh,24px);
-
-  font-size:
-    clamp(1.05rem,2.7vw,1.25rem);
-
-  font-style:italic;
-
-  color:var(--navy);
-
-  position:relative;
-
-  padding-top:
-    clamp(12px,2vh,18px);
-}
-
-.inside-signoff::before{
-  content:"";
-
-  position:absolute;
-
-  top:0;
-  left:0;
-
-  width:40px;
-  height:1px;
-
-  background:var(--gold-line);
 }
 
 .inside-close-hint{
@@ -1476,7 +1476,7 @@ h2,
   font-family:
     -apple-system,
     BlinkMacSystemFont,
-    "Segoe UI",
+    'Segoe UI',
     sans-serif;
 
   font-size:.68rem;
@@ -1486,105 +1486,212 @@ h2,
   color:var(--ink-muted);
 
   opacity:.55;
+
+  z-index:7;
 }
 
-/* ============================================================
-   OPEN STATE
-   ============================================================ */
+.inside-salutation{
+  font-size:
+    clamp(1.1rem,4.8cqi,1.35rem);
 
-.card-wrap.is-open .card{
+  font-style:italic;
+
+  color:var(--gold);
+
+  margin-bottom:
+    clamp(10px,2vh,16px);
+
+  position:relative;
+
+  z-index:6;
+
+  opacity:0;
+
   transform:
-    rotateY(180deg)
-    translateZ(0);
+    translateY(10px);
 
   transition:
-    transform var(--dur-slow) var(--ease-settle);
+    opacity 650ms var(--ease-soft) 500ms,
+    transform 650ms var(--ease-soft) 500ms;
 }
 
-.card-wrap.is-open .card-shadow{
-  opacity:.6;
+.inside-message{
+  font-size:
+    clamp(1rem,4.2cqi,1.18rem);
 
-  transform:scale(.92);
+  line-height:1.68;
+
+  color:var(--navy-soft);
+
+  max-width:46ch;
+
+  position:relative;
+
+  z-index:6;
 }
 
-.card-wrap.is-anticipating .card{
+.inside-message p{
+  margin:
+    0 0 .9em;
+
+  opacity:0;
+
   transform:
-    rotateX(-3deg)
-    scale(.985)
-    translateY(4px);
+    translateY(12px);
 
   transition:
-    transform 180ms var(--ease-silk);
+    opacity 700ms var(--ease-soft),
+    transform 700ms var(--ease-soft);
 }
 
-.card-wrap.is-open .face-inside{
+.inside-message p:nth-child(1){
+  transition-delay:600ms;
+}
+
+.inside-message p:nth-child(2){
+  transition-delay:730ms;
+}
+
+.inside-message p:nth-child(3){
+  transition-delay:860ms;
+}
+
+.inside-message p:last-child{
+  margin-bottom:0;
+}
+
+.inside-signoff{
+  margin-top:
+    clamp(16px,3vh,24px);
+
+  font-size:
+    clamp(1.05rem,4.5cqi,1.25rem);
+
+  font-style:italic;
+
+  color:var(--navy);
+
+  position:relative;
+
+  padding-top:
+    clamp(12px,2vh,18px);
+
+  z-index:6;
+
+  opacity:0;
+
+  transform:
+    translateY(10px);
+
+  transition:
+    opacity 700ms var(--ease-soft) 1s,
+    transform 700ms var(--ease-soft) 1s;
+}
+
+.inside-signoff::before{
+  content:'';
+
+  position:absolute;
+
+  top:0;
+  left:0;
+
+  width:40px;
+  height:1px;
+
+  background:var(--gold-line);
+}
+
+.card-wrap.is-open .inside-salutation,
+.card-wrap.is-open .inside-signoff{
   opacity:1;
-
-  transition:
-    opacity 480ms ease-out 640ms;
+  transform:translateY(0);
 }
 
-/* ============================================================
+.card-wrap.is-open .inside-message p{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ==========================================================
    LIGHT SWEEP
-   ============================================================ */
+   ========================================================== */
 
 .light-sweep{
   position:absolute;
 
-  inset:-20%;
+  inset:0;
 
   z-index:20;
 
   pointer-events:none;
 
+  overflow:hidden;
+
+  border-radius:var(--radius);
+}
+
+.light-sweep::before{
+  content:'';
+
+  position:absolute;
+
+  top:-30%;
+  bottom:-30%;
+
+  left:-60%;
+
+  width:40%;
+
   background:
     linear-gradient(
-      115deg,
-      transparent 30%,
-      rgba(255,255,255,.55) 48%,
-      transparent 62%
+      90deg,
+      transparent,
+      rgba(255,255,255,.52),
+      transparent
     );
 
-  transform:translateX(-120%);
+  transform:
+    skewX(-18deg);
 
   opacity:0;
 }
 
-.card-wrap.is-open .light-sweep{
+.card-wrap.is-open .light-sweep::before{
   animation:
-    sweep 1.05s var(--ease-silk) 260ms 1;
+    light-sweep 1.35s var(--ease-silk) 250ms 1;
 }
 
-@keyframes sweep{
+@keyframes light-sweep{
   0%{
-    transform:translateX(-120%);
+    left:-60%;
     opacity:0;
   }
 
-  12%{
-    opacity:.9;
+  15%{
+    opacity:.7;
   }
 
   55%{
-    opacity:.5;
+    opacity:.35;
   }
 
   100%{
-    transform:translateX(120%);
+    left:130%;
     opacity:0;
   }
 }
 
-/* ============================================================
+/* ==========================================================
    PETAL BURST
-   ============================================================ */
+   ========================================================== */
 
 .petal-burst{
   position:absolute;
 
   inset:0;
 
-  z-index:15;
+  z-index:25;
 
   pointer-events:none;
 
@@ -1594,11 +1701,11 @@ h2,
 .burst-petal{
   position:absolute;
 
-  top:46%;
+  top:45%;
   left:50%;
 
-  width:10px;
-  height:14px;
+  width:9px;
+  height:13px;
 
   background:
     radial-gradient(
@@ -1616,21 +1723,21 @@ h2,
 
 .card-wrap.is-open .burst-petal{
   animation:
-    burst 1.3s var(--ease-silk) forwards;
+    petal-float 1.65s var(--ease-silk) forwards;
 }
 
-@keyframes burst{
+@keyframes petal-float{
   0%{
     opacity:0;
 
     transform:
       translate(-50%,-50%)
-      rotate(0deg)
-      scale(.4);
+      scale(.25)
+      rotate(0deg);
   }
 
-  18%{
-    opacity:.85;
+  15%{
+    opacity:.75;
   }
 
   100%{
@@ -1642,23 +1749,53 @@ h2,
         calc(-50% + var(--by))
       )
       rotate(var(--brot))
-      scale(.9);
+      scale(.8);
   }
 }
 
-/* ============================================================
-   PRESS FEEDBACK
-   ============================================================ */
+/* ==========================================================
+   OPENING GLOW
+   ========================================================== */
 
-.card.is-pressed{
-  filter:brightness(.99);
+.card-wrap::after{
+  content:'';
+
+  position:absolute;
+
+  inset:-15px;
+
+  z-index:-2;
+
+  border-radius:30px;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(212,181,115,.16),
+      transparent 65%
+    );
+
+  opacity:.45;
+
+  filter:blur(20px);
+
+  transform:scale(.92);
+
+  transition:
+    opacity 900ms ease,
+    transform 900ms var(--ease-soft);
 }
 
-/* ============================================================
-   RESPONSIVE DECOR
-   ============================================================ */
+.card-wrap.is-open::after{
+  opacity:.7;
+  transform:scale(1);
+}
 
-@media (max-width:640px){
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media(max-width:640px){
 
   .decor-density-low{
     display:none;
@@ -1666,28 +1803,14 @@ h2,
 
   .decor-item{
     opacity:.4;
-    transform:scale(.8);
   }
 
   .card-wrap{
-    margin:14px;
-  }
-
-  .card-face{
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.7),
-      inset 0 -1px 0 rgba(90,82,64,.08),
-      0 20px 42px -18px rgba(22,32,46,.30),
-      0 7px 16px -10px rgba(22,32,46,.20);
-  }
-
-  .inside-message{
-    line-height:1.58;
+    margin:12px;
   }
 }
 
-/* Short screens */
-@media (max-height:560px){
+@media(max-height:560px){
 
   .decor-density-low,
   .decor-density-med{
@@ -1707,8 +1830,7 @@ h2,
   }
 }
 
-/* Landscape phones */
-@media (max-height:480px) and (orientation:landscape){
+@media(max-height:480px) and (orientation:landscape){
 
   :root{
     --card-h:clamp(300px,92dvh,620px);
@@ -1717,11 +1839,13 @@ h2,
 
   .face-front,
   .face-inside{
-    padding:24px 42px;
+    padding:
+      24px 42px;
   }
 
   .front-heading{
-    font-size:clamp(1.4rem,5vw,2.2rem);
+    font-size:
+      clamp(1.4rem,5vw,2.2rem);
   }
 
   .inside-message{
@@ -1730,11 +1854,11 @@ h2,
   }
 }
 
-/* Very narrow devices */
-@media (max-width:360px){
+@media(max-width:360px){
 
   :root{
-    --card-w:calc(100vw - 24px);
+    --card-w:
+      calc(100vw - 24px);
   }
 
   .face-front,
@@ -1752,11 +1876,11 @@ h2,
   }
 }
 
-/* ============================================================
+/* ==========================================================
    REDUCED MOTION
-   ============================================================ */
+   ========================================================== */
 
-@media (prefers-reduced-motion:reduce){
+@media(prefers-reduced-motion:reduce){
 
   *,
   *::before,
@@ -1764,22 +1888,18 @@ h2,
     animation-duration:.01ms !important;
     animation-iteration-count:1 !important;
     transition-duration:200ms !important;
-    scroll-behavior:auto !important;
-  }
-
-  .card-wrap.is-open .card{
-    transform:rotateY(180deg);
   }
 
   .light-sweep,
-  .burst-petal{
+  .petal-burst,
+  .card-wrap::after{
     display:none;
   }
 }
 
-/* ============================================================
-   SCREEN READER ONLY
-   ============================================================ */
+/* ==========================================================
+   SCREEN READER
+   ========================================================== */
 
 .sr-only{
   position:absolute;
@@ -1815,17 +1935,17 @@ h2,
 
   <div
     class="decor-layer"
-    aria-hidden="true"
     id="decorLayer"
+    aria-hidden="true"
   >
 
-    <!-- FLOWER 1 -->
+    <!-- Flower 1 -->
+
     <div
       class="decor-item flower sway"
-      style="top:6%; left:4%;"
+      style="top:6%;left:4%;"
     >
       <div class="stem"></div>
-
       <div class="leaf l"></div>
       <div class="leaf r"></div>
 
@@ -1839,7 +1959,8 @@ h2,
       </div>
     </div>
 
-    <!-- FLOWER 2 -->
+    <!-- Flower 2 -->
+
     <div
       class="decor-item flower sway decor-density-med"
       style="
@@ -1849,7 +1970,6 @@ h2,
       "
     >
       <div class="stem"></div>
-
       <div class="leaf l"></div>
       <div class="leaf r"></div>
 
@@ -1863,7 +1983,8 @@ h2,
       </div>
     </div>
 
-    <!-- FLOWER 3 -->
+    <!-- Flower 3 -->
+
     <div
       class="decor-item flower sway decor-density-low"
       style="
@@ -1874,7 +1995,6 @@ h2,
       "
     >
       <div class="stem"></div>
-
       <div class="leaf l"></div>
       <div class="leaf r"></div>
 
@@ -1888,7 +2008,8 @@ h2,
       </div>
     </div>
 
-    <!-- FLOWER 4 -->
+    <!-- Flower 4 -->
+
     <div
       class="decor-item flower sway decor-density-low"
       style="
@@ -1899,7 +2020,6 @@ h2,
       "
     >
       <div class="stem"></div>
-
       <div class="leaf l"></div>
       <div class="leaf r"></div>
 
@@ -1913,7 +2033,8 @@ h2,
       </div>
     </div>
 
-    <!-- BOOK -->
+    <!-- Book -->
+
     <div
       class="decor-item doodle-book float-slow decor-density-med"
       style="
@@ -1927,7 +2048,8 @@ h2,
       <div class="pages"></div>
     </div>
 
-    <!-- PENCIL -->
+    <!-- Pencil -->
+
     <div
       class="decor-item doodle-pencil float-med decor-density-med"
       style="
@@ -1941,7 +2063,8 @@ h2,
       <div class="lead"></div>
     </div>
 
-    <!-- CAP -->
+    <!-- Cap -->
+
     <div
       class="decor-item doodle-cap float-slower decor-density-low"
       style="
@@ -1955,7 +2078,8 @@ h2,
       <div class="tassel"></div>
     </div>
 
-    <!-- GLASSES -->
+    <!-- Glasses -->
+
     <div
       class="decor-item doodle-glasses float-slow decor-density-low"
       style="
@@ -1969,7 +2093,8 @@ h2,
       <div class="bridge"></div>
     </div>
 
-    <!-- BULB -->
+    <!-- Bulb -->
+
     <div
       class="decor-item doodle-bulb float-med decor-density-low"
       style="
@@ -1983,7 +2108,8 @@ h2,
       <div class="filament"></div>
     </div>
 
-    <!-- STARS -->
+    <!-- Stars -->
+
     <div
       class="decor-item doodle-star float-slow decor-density-low"
       style="
@@ -2009,7 +2135,8 @@ h2,
       "
     ></div>
 
-    <!-- PARTICLES -->
+    <!-- Particles -->
+
     <div
       class="drift-particle"
       style="
@@ -2048,6 +2175,7 @@ h2,
 
   </div>
 
+
   <!-- ========================================================
        CARD
        ======================================================== -->
@@ -2071,9 +2199,7 @@ h2,
       aria-label="Teachers' Day greeting card. Press to open and read the message."
     >
 
-      <!-- ====================================================
-           FRONT
-           ==================================================== -->
+      <!-- FRONT -->
 
       <section
         class="card-face face-front"
@@ -2082,6 +2208,11 @@ h2,
 
         <div
           class="card-border"
+          aria-hidden="true"
+        ></div>
+
+        <div
+          class="card-foil"
           aria-hidden="true"
         ></div>
 
@@ -2113,14 +2244,10 @@ h2,
           class="front-emblem"
           aria-hidden="true"
         >
-
           <div class="star"></div>
-
           <div class="page-l"></div>
           <div class="page-r"></div>
-
           <div class="spine-line"></div>
-
         </div>
 
         <h1 class="front-heading">
@@ -2141,15 +2268,13 @@ h2,
             class="tap-dot"
             aria-hidden="true"
           ></span>
-
           Tap to open
         </p>
 
       </section>
 
-      <!-- ====================================================
-           INSIDE
-           ==================================================== -->
+
+      <!-- INSIDE -->
 
       <section
         class="card-face face-inside"
@@ -2158,6 +2283,11 @@ h2,
 
         <div
           class="card-border"
+          aria-hidden="true"
+        ></div>
+
+        <div
+          class="card-foil"
           aria-hidden="true"
         ></div>
 
@@ -2201,12 +2331,16 @@ h2,
 
       </section>
 
-      <!-- EFFECTS -->
+
+      <!-- LIGHT -->
 
       <div
         class="light-sweep"
         aria-hidden="true"
       ></div>
+
+
+      <!-- PETALS -->
 
       <div
         class="petal-burst"
@@ -2220,142 +2354,175 @@ h2,
 
 </main>
 
+
 <p
   class="sr-only"
   id="liveRegion"
   aria-live="polite"
 ></p>
 
+
 <script>
 (function(){
 
   "use strict";
 
-  /* ==========================================================
+  /* ========================================================
      ELEMENTS
-     ========================================================== */
+     ======================================================== */
 
-  var cardWrap   = document.getElementById("cardWrap");
-  var card       = document.getElementById("card");
-  var petalBurst = document.getElementById("petalBurst");
-  var liveRegion = document.getElementById("liveRegion");
+  const card =
+    document.getElementById("card");
 
-  var frontFace  = card.querySelector(".face-front");
-  var insideFace = card.querySelector(".face-inside");
+  const cardWrap =
+    document.getElementById("cardWrap");
 
-  /* ==========================================================
-     STATE
-     ========================================================== */
+  const decorLayer =
+    document.getElementById("decorLayer");
 
-  var isOpen = false;
+  const petalBurst =
+    document.getElementById("petalBurst");
 
-  var prefersReducedMotion =
-    window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+  const liveRegion =
+    document.getElementById("liveRegion");
 
-  var supportsHover =
-    window.matchMedia(
-      "(hover: hover) and (pointer: fine)"
-    ).matches;
-
-  /* Used to prevent animation race conditions when clicking
-     repeatedly during the flip. */
-  var transitionToken = 0;
-
-  /* ==========================================================
-     PETAL BURST
-     ========================================================== */
-
-  function buildPetalBurst(){
-
-    var count =
-      prefersReducedMotion
-        ? 0
-        : 12;
-
-    for(var i = 0; i < count; i++){
-
-      var p =
-        document.createElement("span");
-
-      p.className = "burst-petal";
-
-      var angle =
-        (Math.PI * 2 * i) / count +
-        (Math.random() * 0.5);
-
-      var dist =
-        70 +
-        Math.random() * 90;
-
-      var bx =
-        Math.cos(angle) * dist;
-
-      var by =
-        Math.sin(angle) * dist - 30;
-
-      var rot =
-        (
-          Math.random() * 240 -
-          120
-        ).toFixed(0) + "deg";
-
-      p.style.setProperty(
-        "--bx",
-        bx.toFixed(0) + "px"
-      );
-
-      p.style.setProperty(
-        "--by",
-        by.toFixed(0) + "px"
-      );
-
-      p.style.setProperty(
-        "--brot",
-        rot
-      );
-
-      p.style.animationDelay =
-        (
-          Math.random() * 180
-        ) + "ms";
-
-      petalBurst.appendChild(p);
-    }
+  if(!card || !cardWrap){
+    return;
   }
 
-  buildPetalBurst();
+  const frontFace =
+    card.querySelector(".face-front");
 
-  /* ==========================================================
-     OPEN / CLOSE
-     ========================================================== */
+  const insideFace =
+    card.querySelector(".face-inside");
 
-  function setOpen(open){
+  const reducedMotionQuery =
+    window.matchMedia
+      ? window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        )
+      : null;
 
-    if(open === isOpen){
+  const hoverQuery =
+    window.matchMedia
+      ? window.matchMedia(
+          "(hover: hover) and (pointer: fine)"
+        )
+      : null;
+
+  const prefersReducedMotion =
+    reducedMotionQuery
+      ? reducedMotionQuery.matches
+      : false;
+
+  const supportsHover =
+    hoverQuery
+      ? hoverQuery.matches
+      : false;
+
+  let isOpen = false;
+
+
+  /* ========================================================
+     PETALS
+     ======================================================== */
+
+  function createPetals(){
+
+    if(
+      prefersReducedMotion ||
+      !petalBurst
+    ){
       return;
     }
 
-    /*
-      IMPORTANT FIX:
-      Pointer tilt previously applied an inline transform.
-      That inline transform could override the CSS flip and
-      prevent the card from opening correctly while the cursor
-      remained over the card.
-    */
-    resetTilt();
+    const count = 12;
 
-    isOpen = open;
+    for(
+      let i = 0;
+      i < count;
+      i++
+    ){
 
-    transitionToken++;
+      const petal =
+        document.createElement("span");
 
-    var currentToken =
-      transitionToken;
+      petal.className =
+        "burst-petal";
+
+      const angle =
+        (Math.PI * 2 * i) /
+        count +
+        Math.random() * .35;
+
+      const distance =
+        75 +
+        Math.random() * 100;
+
+      const bx =
+        Math.cos(angle) *
+        distance;
+
+      const by =
+        Math.sin(angle) *
+        distance -
+        30;
+
+      const rotation =
+        Math.round(
+          Math.random() * 260 - 130
+        ) + "deg";
+
+      petal.style.setProperty(
+        "--bx",
+        Math.round(bx) + "px"
+      );
+
+      petal.style.setProperty(
+        "--by",
+        Math.round(by) + "px"
+      );
+
+      petal.style.setProperty(
+        "--brot",
+        rotation
+      );
+
+      petal.style.animationDelay =
+        Math.round(
+          Math.random() * 180
+        ) + "ms";
+
+      petalBurst.appendChild(
+        petal
+      );
+    }
+  }
+
+
+  /* ========================================================
+     ACCESSIBILITY
+     ======================================================== */
+
+  function updateAccessibility(){
+
+    if(frontFace){
+      frontFace.setAttribute(
+        "aria-hidden",
+        isOpen ? "true" : "false"
+      );
+    }
+
+    if(insideFace){
+      insideFace.setAttribute(
+        "aria-hidden",
+        isOpen ? "false" : "true"
+      );
+    }
 
     card.setAttribute(
       "aria-pressed",
-      String(isOpen)
+      isOpen ? "true" : "false"
     );
 
     card.setAttribute(
@@ -2365,286 +2532,452 @@ h2,
         : "Teachers' Day greeting card. Press to open and read the message."
     );
 
-    frontFace.setAttribute(
-      "aria-hidden",
-      String(isOpen)
-    );
-
-    insideFace.setAttribute(
-      "aria-hidden",
-      String(!isOpen)
-    );
-
-    liveRegion.textContent =
-      isOpen
-        ? "Card opened. Message revealed."
-        : "Card closed.";
-
-    cardWrap.classList.add(
-      "is-anticipating"
-    );
-
-    window.setTimeout(
-      function(){
-
-        /*
-          Prevent an older animation from changing the card
-          after a newer click has already happened.
-        */
-        if(currentToken !== transitionToken){
-          return;
-        }
-
-        cardWrap.classList.remove(
-          "is-anticipating"
-        );
-
-        cardWrap.classList.toggle(
-          "is-open",
-          isOpen
-        );
-
-      },
-      prefersReducedMotion
-        ? 0
-        : 160
-    );
-  }
-
-  function toggle(){
-    setOpen(!isOpen);
-  }
-
-  /* ==========================================================
-     MOUSE / KEYBOARD
-     ========================================================== */
-
-  card.addEventListener(
-    "click",
-    toggle
-  );
-
-  card.addEventListener(
-    "keydown",
-    function(e){
-
-      if(
-        e.key === "Enter" ||
-        e.key === " " ||
-        e.key === "Spacebar"
-      ){
-
-        e.preventDefault();
-
-        toggle();
-      }
+    if(liveRegion){
+      liveRegion.textContent =
+        isOpen
+          ? "Card opened. Message revealed."
+          : "Card closed.";
     }
-  );
+  }
 
-  /* ==========================================================
-     3D TILT
-     ========================================================== */
 
-  var tiltRaf = null;
+  /* ========================================================
+     PETAL RESTART
+     ======================================================== */
 
-  function applyTilt(clientX, clientY){
+  function restartPetals(){
+
+    if(
+      prefersReducedMotion ||
+      !petalBurst
+    ){
+      return;
+    }
+
+    const petals =
+      petalBurst.querySelectorAll(
+        ".burst-petal"
+      );
+
+    petals.forEach(
+      function(petal){
+        petal.style.animation =
+          "none";
+      }
+    );
+
+    /*
+      Force a single reflow.
+    */
+
+    void petalBurst.offsetWidth;
+
+    petals.forEach(
+      function(petal){
+        petal.style.animation =
+          "";
+      }
+    );
+  }
+
+
+  /* ========================================================
+     OPEN
+     ======================================================== */
+
+  function openCard(){
 
     if(isOpen){
       return;
     }
 
-    var rect =
-      cardWrap.getBoundingClientRect();
+    isOpen = true;
 
-    var relX =
-      (clientX - rect.left) /
-      rect.width;
+    /*
+      The CSS class is the ONLY thing controlling
+      the card's flip.
+    */
 
-    var relY =
-      (clientY - rect.top) /
-      rect.height;
+    cardWrap.classList.add(
+      "is-open"
+    );
 
-    var maxTilt = 6;
-
-    var rotY =
-      (relX - .5) *
-      maxTilt *
-      2;
-
-    var rotX =
-      -(relY - .5) *
-      maxTilt *
-      2;
-
-    if(tiltRaf){
-      cancelAnimationFrame(
-        tiltRaf
+    if(decorLayer){
+      decorLayer.classList.add(
+        "is-focused"
       );
     }
 
-    tiltRaf =
-      requestAnimationFrame(
-        function(){
+    updateAccessibility();
 
-          if(isOpen){
-            return;
-          }
+    restartPetals();
 
-          card.style.transition =
-            "transform 120ms ease-out";
+    /*
+      Audio can never block opening.
+    */
 
-          card.style.transform =
-            "rotateY(" +
-            rotY +
-            "deg) rotateX(" +
-            rotX +
-            "deg)";
-        }
-      );
+    playChimeSafely();
   }
 
-  function resetTilt(){
 
-    if(tiltRaf){
-      cancelAnimationFrame(
-        tiltRaf
-      );
+  /* ========================================================
+     CLOSE
+     ======================================================== */
 
-      tiltRaf = null;
+  function closeCard(){
+
+    if(!isOpen){
+      return;
     }
 
-    card.style.transition = "";
-    card.style.transform = "";
+    isOpen = false;
+
+    cardWrap.classList.remove(
+      "is-open"
+    );
+
+    if(decorLayer){
+      decorLayer.classList.remove(
+        "is-focused"
+      );
+    }
+
+    updateAccessibility();
   }
+
+
+  /* ========================================================
+     TOGGLE
+     ======================================================== */
+
+  function toggleCard(){
+
+    if(isOpen){
+      closeCard();
+    }else{
+      openCard();
+    }
+  }
+
+
+  /* ========================================================
+     CLICK
+     ======================================================== */
+
+  card.addEventListener(
+    "click",
+    function(event){
+
+      event.preventDefault();
+
+      toggleCard();
+    }
+  );
+
+
+  /* ========================================================
+     KEYBOARD
+     ======================================================== */
+
+  card.addEventListener(
+    "keydown",
+    function(event){
+
+      if(
+        event.key === "Enter" ||
+        event.key === " " ||
+        event.key === "Spacebar"
+      ){
+
+        event.preventDefault();
+
+        toggleCard();
+      }
+
+      if(
+        event.key === "Escape" &&
+        isOpen
+      ){
+
+        event.preventDefault();
+
+        closeCard();
+      }
+
+    }
+  );
+
+
+  /* ========================================================
+     PRESS FEEDBACK
+     ======================================================== */
+
+  function addPressed(){
+
+    card.classList.add(
+      "is-pressed"
+    );
+  }
+
+  function removePressed(){
+
+    card.classList.remove(
+      "is-pressed"
+    );
+  }
+
+
+  if(window.PointerEvent){
+
+    card.addEventListener(
+      "pointerdown",
+      addPressed
+    );
+
+    card.addEventListener(
+      "pointerup",
+      removePressed
+    );
+
+    card.addEventListener(
+      "pointercancel",
+      removePressed
+    );
+
+    card.addEventListener(
+      "pointerleave",
+      removePressed
+    );
+
+  }else{
+
+    card.addEventListener(
+      "touchstart",
+      addPressed,
+      {passive:true}
+    );
+
+    card.addEventListener(
+      "touchend",
+      removePressed,
+      {passive:true}
+    );
+
+    card.addEventListener(
+      "touchcancel",
+      removePressed,
+      {passive:true}
+    );
+
+    card.addEventListener(
+      "mousedown",
+      addPressed
+    );
+
+    card.addEventListener(
+      "mouseup",
+      removePressed
+    );
+
+    card.addEventListener(
+      "mouseleave",
+      removePressed
+    );
+  }
+
+
+  /* ========================================================
+     DESKTOP TILT
+     ======================================================== */
 
   if(
     supportsHover &&
     !prefersReducedMotion
   ){
 
+    let targetX = 0;
+    let targetY = 0;
+
+    let currentX = 0;
+    let currentY = 0;
+
+    let animationFrame = 0;
+
+
+    function renderTilt(){
+
+      currentX +=
+        (
+          targetX -
+          currentX
+        ) * .09;
+
+      currentY +=
+        (
+          targetY -
+          currentY
+        ) * .09;
+
+      const lift =
+        isOpen ? -2 : 0;
+
+      cardWrap.style.transform =
+        "perspective(1200px) " +
+        "rotateX(" +
+        currentX.toFixed(2) +
+        "deg) " +
+        "rotateY(" +
+        currentY.toFixed(2) +
+        "deg) " +
+        "translateY(" +
+        lift +
+        "px)";
+
+      const deltaX =
+        Math.abs(
+          targetX -
+          currentX
+        );
+
+      const deltaY =
+        Math.abs(
+          targetY -
+          currentY
+        );
+
+      if(
+        deltaX > .01 ||
+        deltaY > .01
+      ){
+
+        animationFrame =
+          requestAnimationFrame(
+            renderTilt
+          );
+
+      }else{
+
+        animationFrame = 0;
+      }
+    }
+
+
+    function requestTiltFrame(){
+
+      if(!animationFrame){
+
+        animationFrame =
+          requestAnimationFrame(
+            renderTilt
+          );
+      }
+    }
+
+
     cardWrap.addEventListener(
       "mousemove",
-      function(e){
+      function(event){
 
-        applyTilt(
-          e.clientX,
-          e.clientY
-        );
+        const rect =
+          cardWrap.getBoundingClientRect();
+
+        if(
+          !rect.width ||
+          !rect.height
+        ){
+          return;
+        }
+
+        const x =
+          (
+            event.clientX -
+            rect.left
+          ) /
+          rect.width;
+
+        const y =
+          (
+            event.clientY -
+            rect.top
+          ) /
+          rect.height;
+
+        targetY =
+          (x - .5) * 6;
+
+        targetX =
+          -(y - .5) * 6;
+
+        requestTiltFrame();
       }
     );
+
 
     cardWrap.addEventListener(
       "mouseleave",
-      resetTilt
+      function(){
+
+        targetX = 0;
+        targetY = 0;
+
+        requestTiltFrame();
+      }
     );
   }
 
-  /* ==========================================================
-     PRESS FEEDBACK
-     ========================================================== */
 
-  function pressDown(){
-    card.classList.add(
-      "is-pressed"
-    );
-  }
-
-  function pressUp(){
-    card.classList.remove(
-      "is-pressed"
-    );
-  }
-
-  card.addEventListener(
-    "pointerdown",
-    pressDown
-  );
-
-  card.addEventListener(
-    "pointerup",
-    pressUp
-  );
-
-  card.addEventListener(
-    "pointercancel",
-    pressUp
-  );
-
-  card.addEventListener(
-    "pointerleave",
-    pressUp
-  );
-
-  /* ==========================================================
+  /* ========================================================
      SOFT CHIME
-     ========================================================== */
+     ======================================================== */
 
-  var audioCtx = null;
+  let audioContext = null;
 
-  function playChime(){
 
-    if(prefersReducedMotion){
-      return;
-    }
+  function playNotes(context){
 
     try{
 
-      var AudioCtx =
-        window.AudioContext ||
-        window.webkitAudioContext;
+      const now =
+        context.currentTime + .02;
 
-      if(!AudioCtx){
-        return;
-      }
-
-      if(!audioCtx){
-
-        audioCtx =
-          new AudioCtx();
-      }
-
-      if(
-        audioCtx.state ===
-        "suspended"
-      ){
-
-        audioCtx.resume();
-      }
-
-      var now =
-        audioCtx.currentTime;
-
-      var freqs = [
-        660,
-        880,
-        1108.73
+      const notes = [
+        523.25,
+        659.25,
+        783.99
       ];
 
-      freqs.forEach(
-        function(freq, i){
+      notes.forEach(
+        function(
+          frequency,
+          index
+        ){
 
-          var osc =
-            audioCtx.createOscillator();
+          const oscillator =
+            context.createOscillator();
 
-          var gain =
-            audioCtx.createGain();
+          const gain =
+            context.createGain();
 
-          osc.type = "sine";
+          oscillator.type =
+            "sine";
 
-          osc.frequency.value =
-            freq;
+          oscillator.frequency.setValueAtTime(
+            frequency,
+            now
+          );
 
-          var start =
-            now + i * .07;
+          const start =
+            now +
+            index * .07;
 
           gain.gain.setValueAtTime(
-            0,
+            .0001,
             start
           );
 
-          gain.gain.linearRampToValueAtTime(
-            .045,
-            start + .04
+          gain.gain.exponentialRampToValueAtTime(
+            .025,
+            start + .05
           );
 
           gain.gain.exponentialRampToValueAtTime(
@@ -2652,58 +2985,174 @@ h2,
             start + .9
           );
 
-          osc.connect(gain);
+          oscillator.connect(
+            gain
+          );
 
           gain.connect(
-            audioCtx.destination
+            context.destination
           );
 
-          osc.start(start);
-
-          osc.stop(
-            start + 1
+          oscillator.start(
+            start
           );
+
+          oscillator.stop(
+            start + .95
+          );
+
         }
       );
 
-    }catch(err){
+    }catch(error){
 
       /*
-        Sound is purely decorative.
-        If the browser blocks Web Audio,
-        the website continues normally.
+        Audio is optional.
       */
     }
   }
 
-  /*
-    Only play the chime when the card actually transitions
-    from closed -> open.
-  */
-  card.addEventListener(
-    "click",
-    function(){
 
-      if(isOpen){
-        playChime();
+  function playChimeSafely(){
+
+    if(prefersReducedMotion){
+      return;
+    }
+
+    try{
+
+      const AudioContextClass =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+      if(!AudioContextClass){
+        return;
       }
 
+      if(!audioContext){
+
+        audioContext =
+          new AudioContextClass();
+      }
+
+      if(
+        audioContext.state ===
+        "suspended"
+      ){
+
+        const resumePromise =
+          audioContext.resume();
+
+        if(
+          resumePromise &&
+          typeof resumePromise.then ===
+            "function"
+        ){
+
+          resumePromise
+            .then(
+              function(){
+
+                if(
+                  audioContext &&
+                  audioContext.state ===
+                    "running"
+                ){
+
+                  playNotes(
+                    audioContext
+                  );
+                }
+
+              }
+            )
+            .catch(
+              function(){
+                /*
+                  Safari may block audio.
+                  Ignore it.
+                */
+              }
+            );
+
+          return;
+        }
+      }
+
+      if(
+        audioContext.state ===
+        "running"
+      ){
+
+        playNotes(
+          audioContext
+        );
+      }
+
+    }catch(error){
+
+      /*
+        Never allow audio errors to affect
+        the card.
+      */
+    }
+  }
+
+
+  /* ========================================================
+     VISIBILITY SAFETY
+     ======================================================== */
+
+  document.addEventListener(
+    "visibilitychange",
+    function(){
+
+      if(
+        document.hidden &&
+        audioContext &&
+        audioContext.state ===
+          "running"
+      ){
+
+        try{
+
+          audioContext.suspend();
+
+        }catch(error){
+
+          /*
+            Ignore audio errors.
+          */
+        }
+      }
     }
   );
 
-  /* ==========================================================
-     RESIZE / ORIENTATION
-     ========================================================== */
 
-  window.addEventListener(
-    "resize",
-    resetTilt
-  );
+  /* ========================================================
+     INITIALIZE
+     ======================================================== */
 
-  window.addEventListener(
-    "orientationchange",
-    resetTilt
-  );
+  try{
+
+    createPetals();
+
+    updateAccessibility();
+
+  }catch(error){
+
+    /*
+      Core card fallback.
+    */
+
+    cardWrap.classList.remove(
+      "is-open"
+    );
+
+    isOpen = false;
+
+    updateAccessibility();
+  }
 
 })();
 </script>
